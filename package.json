@@ -1,0 +1,11 @@
+{
+  "name": "treasure-hunt",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "author": "Yannick <yannlacroix@fastmail.com>",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
