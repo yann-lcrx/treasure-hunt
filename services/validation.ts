@@ -1,13 +1,14 @@
 import { CardinalPoint, FileElement } from "../constants/constants"
-import { incompleteAdventurerErrorMessage, incompleteMountainErrorMessage, nonCardinalAdventurerErrorMessage, nonNumberAxisAdventurerErrorMessage, nonNumberAxisMountainErrorMessage } from "../constants/errors"
+import { incompleteAdventurerErrorMessage, incompleteMountainErrorMessage, incompleteTreasureErrorMessage, nonCardinalAdventurerErrorMessage, nonNumberCoordinatesErrorMessage, nonNumberCountTreasureErrorMessage } from "../constants/errors"
 
 export const validateEntry = (mapElements: string[][]) => {
     const mountains = getAllItemsOfType(mapElements, FileElement.MOUNTAIN)
     const adventurers = getAllItemsOfType(mapElements, FileElement.ADVENTURER)
+    const treasures = getAllItemsOfType(mapElements, FileElement.TREASURE)
 
     validateMountains(mountains)
     validateAdventurers(adventurers)
-
+    validateTreasures(treasures)
 }
 
 const validateAdventurers = (adventurers: string[][]) => {
@@ -22,7 +23,7 @@ const validateAdventurers = (adventurers: string[][]) => {
         const steps = adventurer[5]
 
         if (isNaN(parseFloat(xAxis)) || isNaN(parseFloat(yAxis))) {
-            throw nonNumberAxisAdventurerErrorMessage
+            throw nonNumberCoordinatesErrorMessage
         }
 
         if (!Object.values<string>(CardinalPoint).includes(direction)) {
@@ -42,7 +43,28 @@ const validateMountains = (mountains: string[][]) => {
         const yAxis = mountain[2]
 
         if (isNaN(parseFloat(xAxis)) || isNaN(parseFloat(yAxis))) {
-            throw nonNumberAxisMountainErrorMessage
+            throw nonNumberCoordinatesErrorMessage
+        }
+    })
+}
+
+const validateTreasures = (treasures: string[][]) => {
+    treasures.forEach((treasure) => {
+
+        if (treasure.length !== 4) {
+            throw incompleteTreasureErrorMessage
+        }
+
+        const xAxis = treasure[1]
+        const yAxis = treasure[2]
+        const count = treasure[3]
+
+        if (isNaN(parseFloat(xAxis)) || isNaN(parseFloat(yAxis))) {
+            throw nonNumberCoordinatesErrorMessage
+        }
+
+        if (isNaN(parseFloat(count))) {
+            throw nonNumberCountTreasureErrorMessage
         }
     })
 }
