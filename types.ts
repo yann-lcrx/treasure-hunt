@@ -1,4 +1,4 @@
-import { CardinalPoint } from "./constants"
+import { CardinalPoint } from "./constants/constants"
 
 interface MapElement {
     xAxis: number
@@ -21,3 +21,5 @@ export interface Map {
     width: number,
     height: number,
 }
+
+export type GameEntryData = string[][]

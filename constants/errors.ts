@@ -1,0 +1,1 @@
+export const incompleteAdventurerErrorMessage = 'Please specify the following values for adventurers: \"A - name - x-axis value - y-axis value\"'
