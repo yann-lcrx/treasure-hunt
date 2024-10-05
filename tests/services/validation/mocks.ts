@@ -19,3 +19,16 @@ export const nonNumberXAxisMountainDataset: GameEntryData = [
 export const nonNumberYAxisMountainDataset: GameEntryData = [
     ["M", "2", "Y"]
 ]
+
+export const nonNumberXAxisAdventurerDataset: GameEntryData = [
+    ["A", "Spike", "A", "5", "S", "AAA"]
+]
+
+export const nonNumberYAxisAdventurerDataset: GameEntryData = [
+    ["A", "Jet", "2", "Z", "S", "AAGA"]
+]
+
+export const nonCardinalAdventurerDataset: GameEntryData = [
+    ["A", "Jet", "2", "1", "R", "AAGA"]
+]
+

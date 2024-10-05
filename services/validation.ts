@@ -1,14 +1,34 @@
-import { FileElement } from "../constants/constants"
-import { incompleteAdventurerErrorMessage, incompleteMountainErrorMessage, nonNumberAxisMountainErrorMessage } from "../constants/errors"
+import { CardinalPoint, FileElement } from "../constants/constants"
+import { incompleteAdventurerErrorMessage, incompleteMountainErrorMessage, nonCardinalAdventurerErrorMessage, nonNumberAxisAdventurerErrorMessage, nonNumberAxisMountainErrorMessage } from "../constants/errors"
 
 export const validateEntry = (mapElements: string[][]) => {
-    console.log("hello world")
-
-    const mountains = getMountains(mapElements)
+    const mountains = getAllItemsOfType(mapElements, FileElement.MOUNTAIN)
+    const adventurers = getAllItemsOfType(mapElements, FileElement.ADVENTURER)
 
     validateMountains(mountains)
+    validateAdventurers(adventurers)
 
-    throw incompleteAdventurerErrorMessage
+}
+
+const validateAdventurers = (adventurers: string[][]) => {
+    adventurers.forEach((adventurer) => {
+        if (adventurer.length !== 6) {
+            throw incompleteAdventurerErrorMessage
+        }
+
+        const xAxis = adventurer[2]
+        const yAxis = adventurer[3]
+        const direction = adventurer[4]
+        const steps = adventurer[5]
+
+        if (isNaN(parseFloat(xAxis)) || isNaN(parseFloat(yAxis))) {
+            throw nonNumberAxisAdventurerErrorMessage
+        }
+
+        if (!Object.values<string>(CardinalPoint).includes(direction)) {
+            throw nonCardinalAdventurerErrorMessage
+        }
+    })
 }
 
 const validateMountains = (mountains: string[][]) => {
@@ -27,6 +47,6 @@ const validateMountains = (mountains: string[][]) => {
     })
 }
 
-const getMountains = (mapElements: string[][]) => {
-    return mapElements.filter((element) => element[0] === FileElement.MOUNTAIN)
+const getAllItemsOfType = (mapElements: string[][], item: FileElement) => {
+    return mapElements.filter((element) => element[0] === item)
 }
