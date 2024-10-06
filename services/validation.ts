@@ -1,14 +1,37 @@
 import { CardinalPoint, FileElement } from "../constants/constants"
-import { incompleteAdventurerErrorMessage, incompleteMountainErrorMessage, incompleteTreasureErrorMessage, nonCardinalAdventurerErrorMessage, nonNumberCoordinatesErrorMessage, nonNumberCountTreasureErrorMessage } from "../constants/errors"
+import { incompleteAdventurerErrorMessage, incompleteMountainErrorMessage, incompleteTreasureErrorMessage, invalidMapErrorMessage, multiMapErrorMessage, nonCardinalAdventurerErrorMessage, nonNumberCoordinatesErrorMessage, nonNumberCountTreasureErrorMessage, smallMapErrorMessage } from "../constants/errors"
 
 export const validateEntry = (mapElements: string[][]) => {
     const mountains = getAllItemsOfType(mapElements, FileElement.MOUNTAIN)
     const adventurers = getAllItemsOfType(mapElements, FileElement.ADVENTURER)
     const treasures = getAllItemsOfType(mapElements, FileElement.TREASURE)
+    const maps = getAllItemsOfType(mapElements, FileElement.MAP)
 
+    validateMap(maps)
     validateMountains(mountains)
     validateAdventurers(adventurers)
     validateTreasures(treasures)
+}
+
+const validateMap = (maps: string[][]) => {
+    if (!maps.length) {
+        throw invalidMapErrorMessage
+    }
+
+    if (maps.length > 1) {
+        throw multiMapErrorMessage
+    }
+
+    const xAxis = maps[0][1]
+    const yAxis = maps[0][2]
+
+    if (isNaN(parseFloat(xAxis)) || isNaN(parseFloat(yAxis))) {
+        throw nonNumberCoordinatesErrorMessage
+    }
+
+    if (parseFloat(xAxis) < 2 || parseFloat(yAxis) < 2) {
+        throw smallMapErrorMessage
+    }
 }
 
 const validateAdventurers = (adventurers: string[][]) => {
@@ -20,7 +43,6 @@ const validateAdventurers = (adventurers: string[][]) => {
         const xAxis = adventurer[2]
         const yAxis = adventurer[3]
         const direction = adventurer[4]
-        const steps = adventurer[5]
 
         if (isNaN(parseFloat(xAxis)) || isNaN(parseFloat(yAxis))) {
             throw nonNumberCoordinatesErrorMessage
