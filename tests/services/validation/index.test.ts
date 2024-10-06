@@ -1,5 +1,5 @@
 import { validateEntry } from "../../../services/validation"
-import { incompleteAdventurerDataset, incompleteAdventurerError, incompleteMountainDataset, incompleteMountainError, incompleteTreasureDataset, incompleteTreasureError, multiMapDataset, multiMapError, noMapDataset, noMapError, nonCardinalAdventurerDataset, nonCardinalAdventurerError, nonNumberCountTreasureDataset, nonNumberCountTreasureError, nonNumberXAxisAdventurerDataset, nonNumberXAxisAdventurerError, nonNumberXAxisMapDataset, nonNumberXAxisMapError, nonNumberXAxisMountainDataset, nonNumberXAxisMountainError, nonNumberXAxisTreasureDataset, nonNumberXAxisTreasureError, nonNumberYAxisAdventurerDataset, nonNumberYAxisAdventurerError, nonNumberYAxisMapDataset, nonNumberYAxisMapError, nonNumberYAxisMountainDataset, nonNumberYAxisMountainError, nonNumberYAxisTreasureDataset, nonNumberYAxisTreasureError, smallMapDataset, smallMapError } from "./mocks"
+import { incompleteAdventurerDataset, incompleteAdventurerError, incompleteMountainDataset, incompleteMountainError, incompleteTreasureDataset, incompleteTreasureError, multiMapDataset, multiMapError, noMapDataset, noMapError, nonCardinalAdventurerDataset, nonCardinalAdventurerError, nonNumberCountTreasureDataset, nonNumberCountTreasureError, nonNumberXAxisAdventurerDataset, nonNumberXAxisAdventurerError, nonNumberXAxisMapDataset, nonNumberXAxisMapError, nonNumberXAxisMountainDataset, nonNumberXAxisMountainError, nonNumberXAxisTreasureDataset, nonNumberXAxisTreasureError, nonNumberYAxisAdventurerDataset, nonNumberYAxisAdventurerError, nonNumberYAxisMapDataset, nonNumberYAxisMapError, nonNumberYAxisMountainDataset, nonNumberYAxisMountainError, nonNumberYAxisTreasureDataset, nonNumberYAxisTreasureError, smallMapDataset, smallMapError, validEntryDataset } from "./mocks"
 
 describe("the validation service - map", () => {
 
@@ -73,4 +73,10 @@ describe("the validation service - mountains", () => {
         expect(validateEntry(nonNumberYAxisMountainDataset)).toEqual(expect.arrayContaining([nonNumberYAxisMountainError]))
     })
 
+})
+
+describe("the validation service", () => {
+    it("should return no errors", () => {
+        expect(() => validateEntry(validEntryDataset)).toHaveLength(0)
+    })
 })

@@ -18,6 +18,7 @@ export const validateEntry = (mapElements: string[][]): GameEntryError[] => {
 }
 
 const validateMap = (maps: string[][]): GameEntryError[] => {
+    console.log(maps)
 
     if (!maps.length) {
         return [{
@@ -160,5 +161,5 @@ const validateTreasures = (treasures: string[][]): GameEntryError[] => {
 }
 
 const getAllItemsOfType = (mapElements: string[][], item: FileElement) => {
-    return mapElements.filter((element) => element[0] === item)
+    return mapElements.filter((element) => { return element[0] === item })
 }
