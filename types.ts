@@ -47,7 +47,13 @@ export interface InGameAdventurer extends InGameElement {
 
 export interface InGameMountain extends InGameElement { }
 
+export interface InGameTreasure extends InGameElement {
+    quantity: number
+}
+
+
 export interface GameState {
     adventurers: InGameAdventurer[]
     mountains: InGameMountain[]
+    treasures: InGameTreasure[]
 }

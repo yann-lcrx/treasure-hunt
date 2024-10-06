@@ -4,9 +4,20 @@ import { getAllItemsOfType } from "../utils"
 export const setupGame = (data: string[][]) => {
     return {
         adventurers: createAdventurers(data),
-        mountains: createMountains(data)
+        mountains: createMountains(data),
+        treasures: createTreasures(data)
     }
 }
+
+const createTreasures = (data: string[][]) => {
+    const treasures = getAllItemsOfType(data, FileElement.TREASURE)
+
+    return treasures.map((treasure) => ({
+        coordinates: { x: parseFloat(treasure[1]), y: parseFloat(treasure[2]) },
+        quantity: parseFloat(treasure[3])
+    }))
+}
+
 
 const createMountains = (data: string[][]) => {
     const mountains = getAllItemsOfType(data, FileElement.MOUNTAIN)
