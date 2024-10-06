@@ -1,4 +1,5 @@
 import { parseFile } from "./services/file"
+import { setupGame } from "./services/setup"
 
 const playGame = async () => {
     // logic
@@ -8,9 +9,9 @@ const playGame = async () => {
 
     const data = await parseFile(path)
 
-    console.log(data)
+    const gameData = setupGame(data)
 
-    return data
+    return gameData
 }
 
 playGame()

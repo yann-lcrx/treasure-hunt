@@ -36,11 +36,13 @@ export interface GameSetupError extends Error {
     message: GameSetupErrorMessage
 }
 
+export interface Coordinates {
+    x: number
+    y: number
+}
+
 interface InGameElement {
-    coordinates: {
-        x: number
-        y: number
-    }
+    coordinates: Coordinates
 }
 export interface InGameAdventurer extends InGameElement {
     name: string
