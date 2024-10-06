@@ -1,5 +1,5 @@
 import { CardinalPoint, Instruction } from "./constants/constants"
-import { GameEntryErrorMessage } from "./constants/errors"
+import { GameEntryErrorMessage, GameSetupErrorMessage } from "./constants/errors"
 
 interface MapElement {
     xAxis: number
@@ -32,6 +32,10 @@ export interface GameEntryError extends Error {
     message: GameEntryErrorMessage
 }
 
+export interface GameSetupError extends Error {
+    message: GameSetupErrorMessage
+}
+
 interface InGameElement {
     coordinates: {
         x: number
@@ -61,4 +65,5 @@ export interface GameState {
     adventurers: InGameAdventurer[]
     mountains: InGameMountain[]
     treasures: InGameTreasure[]
+    errors: GameSetupError[]
 }

@@ -1,16 +1,33 @@
-import { FileElement } from "../constants/constants"
+import { CardinalPoint, FileElement, Instruction } from "../constants/constants"
+import { GameSetupErrorMessage, GameSetupErrorName } from "../constants/errors"
+import { GameEntryData, GameSetupError, GameState, InGameAdventurer, InGameMap, InGameMountain, InGameTreasure } from "../types"
 import { getAllItemsOfType } from "../utils"
 
-export const setupGame = (data: string[][]) => {
+export const setupGame = (data: GameEntryData): GameState | Pick<GameState, "errors"> => {
+    const map = createMap(data)
+    const errors: GameSetupError[] = []
+
+    if (!map) {
+        return {
+            errors: [
+                {
+                    name: GameSetupErrorName.INVALID_MAP,
+                    message: GameSetupErrorMessage.INVALID_MAP
+                }
+            ]
+        }
+    }
+
     return {
-        map: createMap(data),
+        map,
         adventurers: createAdventurers(data),
         mountains: createMountains(data),
-        treasures: createTreasures(data)
+        treasures: createTreasures(data),
+        errors
     }
 }
 
-const createMap = (data: string[][]) => {
+const createMap = (data: GameEntryData): InGameMap | undefined => {
     const map = data.find(line => line[0] === FileElement.MAP)
 
     if (map) {
@@ -21,7 +38,7 @@ const createMap = (data: string[][]) => {
     }
 }
 
-const createTreasures = (data: string[][]) => {
+const createTreasures = (data: GameEntryData): InGameTreasure[] => {
     const treasures = getAllItemsOfType(data, FileElement.TREASURE)
 
     return treasures.map((treasure) => ({
@@ -30,7 +47,7 @@ const createTreasures = (data: string[][]) => {
     }))
 }
 
-const createMountains = (data: string[][]) => {
+const createMountains = (data: GameEntryData): InGameMountain[] => {
     const mountains = getAllItemsOfType(data, FileElement.MOUNTAIN)
 
     return mountains.map((mountain) => ({
@@ -38,18 +55,18 @@ const createMountains = (data: string[][]) => {
     }))
 }
 
-const createAdventurers = (data: string[][]) => {
+const createAdventurers = (data: GameEntryData): InGameAdventurer[] => {
     const adventurers = getAllItemsOfType(data, FileElement.ADVENTURER)
 
     return adventurers.map((adventurer) => ({
         name: adventurer[1],
         coordinates: { x: parseFloat(adventurer[2]), y: parseFloat(adventurer[3]) },
-        direction: adventurer[4],
+        direction: adventurer[4] as CardinalPoint,
         treasureCount: 0,
         instructions: createInstructions(adventurer[5])
     }))
 }
 
-const createInstructions = (string: string) => {
-    return string.split("")
+const createInstructions = (string: string): Instruction[] => {
+    return string.split("") as Instruction[]
 }

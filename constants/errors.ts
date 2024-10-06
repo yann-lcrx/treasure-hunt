@@ -21,3 +21,11 @@ export enum GameEntryErrorName {
     INVALID_TREASURE = "InvalidTreasure",
     NON_NUMBER_TREASURE_QUANTITY = "NonNumberTreasureQuantity"
 }
+
+export enum GameSetupErrorMessage {
+    INVALID_MAP = 'Please specify the following values for map creation: "C - x-axis length - y-axis length"'
+}
+
+export enum GameSetupErrorName {
+    INVALID_MAP = "InvalidMap",
+}
