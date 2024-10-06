@@ -2,7 +2,7 @@ import fs from "fs";
 import { parse, Parser } from "csv-parse"
 
 const getParser = (path: fs.PathLike) => {
-    return fs.createReadStream(path).pipe(parse({ delimiter: " - " }))
+    return fs.createReadStream(path).pipe(parse({ delimiter: " - ", relax_column_count: true }))
 }
 
 const parseCsv = async (parser: Parser) => {
