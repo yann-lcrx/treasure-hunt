@@ -3,9 +3,21 @@ import { getAllItemsOfType } from "../utils"
 
 export const setupGame = (data: string[][]) => {
     return {
+        map: createMap(data),
         adventurers: createAdventurers(data),
         mountains: createMountains(data),
         treasures: createTreasures(data)
+    }
+}
+
+const createMap = (data: string[][]) => {
+    const map = data.find(line => line[0] === FileElement.MAP)
+
+    if (map) {
+        return {
+            width: parseFloat(map[1]),
+            height: parseFloat(map[2])
+        }
     }
 }
 
@@ -17,7 +29,6 @@ const createTreasures = (data: string[][]) => {
         quantity: parseFloat(treasure[3])
     }))
 }
-
 
 const createMountains = (data: string[][]) => {
     const mountains = getAllItemsOfType(data, FileElement.MOUNTAIN)

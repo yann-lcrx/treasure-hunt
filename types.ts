@@ -51,8 +51,13 @@ export interface InGameTreasure extends InGameElement {
     quantity: number
 }
 
+export interface InGameMap {
+    width: number,
+    height: number
+}
 
 export interface GameState {
+    map: InGameMap
     adventurers: InGameAdventurer[]
     mountains: InGameMountain[]
     treasures: InGameTreasure[]
