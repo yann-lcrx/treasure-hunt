@@ -32,17 +32,22 @@ export interface GameEntryError extends Error {
     message: GameEntryErrorMessage
 }
 
-export interface InGameAdventurer {
-    name: string
+interface InGameElement {
     coordinates: {
         x: number
         y: number
     }
+}
+export interface InGameAdventurer extends InGameElement {
+    name: string
     direction: CardinalPoint
     treasureCount: number
     instructions: Instruction[]
 }
 
+export interface InGameMountain extends InGameElement { }
+
 export interface GameState {
     adventurers: InGameAdventurer[]
+    mountains: InGameMountain[]
 }
