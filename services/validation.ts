@@ -11,10 +11,10 @@ export const validateEntry = (mapElements: string[][]): GameEntryError[] => {
 
     const mapErrors = validateMap(maps)
     const adventurerErrors = validateAdventurers(adventurers)
-    const mountainErrors = validateMountains(mountains)
     const treasureErrors = validateTreasures(treasures)
+    const mountainErrors = validateMountains(mountains)
 
-    return [...mapErrors, ...adventurerErrors]
+    return [...mapErrors, ...adventurerErrors, ...treasureErrors, ...mountainErrors]
 }
 
 const validateMap = (maps: string[][]): GameEntryError[] => {
@@ -97,26 +97,42 @@ const validateAdventurers = (adventurers: string[][]): GameEntryError[] => {
 }
 
 const validateMountains = (mountains: string[][]) => {
-    mountains.forEach((mountain) => {
+    const errors: GameEntryError[] = []
 
+    mountains.forEach((mountain) => {
         if (mountain.length !== 3) {
-            throw GameEntryErrorMessage.INVALID_MOUNTAIN
+            return addError(errors, {
+                name: GameEntryErrorName.INVALID_MOUNTAIN,
+                message: GameEntryErrorMessage.INVALID_MOUNTAIN,
+                line: mountain
+            })
         }
 
         const xAxis = mountain[1]
         const yAxis = mountain[2]
 
         if (isNaN(parseFloat(xAxis)) || isNaN(parseFloat(yAxis))) {
-            throw GameEntryErrorMessage.NON_NUMBER_COORDINATES
+            addError(errors, {
+                name: GameEntryErrorName.NON_NUMBER_COORDINATES,
+                message: GameEntryErrorMessage.NON_NUMBER_COORDINATES,
+                line: mountain
+            })
         }
     })
+
+    return errors
 }
 
-const validateTreasures = (treasures: string[][]) => {
-    treasures.forEach((treasure) => {
+const validateTreasures = (treasures: string[][]): GameEntryError[] => {
+    const errors: GameEntryError[] = []
 
+    treasures.forEach((treasure) => {
         if (treasure.length !== 4) {
-            throw GameEntryErrorMessage.INVALID_TREASURE
+            return addError(errors, {
+                name: GameEntryErrorName.INVALID_TREASURE,
+                message: GameEntryErrorMessage.INVALID_TREASURE,
+                line: treasure
+            })
         }
 
         const xAxis = treasure[1]
@@ -124,13 +140,23 @@ const validateTreasures = (treasures: string[][]) => {
         const count = treasure[3]
 
         if (isNaN(parseFloat(xAxis)) || isNaN(parseFloat(yAxis))) {
-            throw GameEntryErrorMessage.NON_NUMBER_COORDINATES
+            addError(errors, {
+                name: GameEntryErrorName.NON_NUMBER_COORDINATES,
+                message: GameEntryErrorMessage.NON_NUMBER_COORDINATES,
+                line: treasure
+            })
         }
 
         if (isNaN(parseFloat(count))) {
-            throw GameEntryErrorMessage.NON_NUMBER_TREASURE_QUANTITY
+            addError(errors, {
+                name: GameEntryErrorName.NON_NUMBER_TREASURE_QUANTITY,
+                message: GameEntryErrorMessage.NON_NUMBER_TREASURE_QUANTITY,
+                line: treasure
+            })
         }
     })
+
+    return errors
 }
 
 const getAllItemsOfType = (mapElements: string[][], item: FileElement) => {
