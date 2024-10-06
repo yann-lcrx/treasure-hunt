@@ -22,8 +22,10 @@ const validateMap = (maps: string[][]) => {
         throw multiMapErrorMessage
     }
 
-    const xAxis = maps[0][1]
-    const yAxis = maps[0][2]
+    const map = maps[0]
+
+    const xAxis = map[1]
+    const yAxis = map[2]
 
     if (isNaN(parseFloat(xAxis)) || isNaN(parseFloat(yAxis))) {
         throw nonNumberCoordinatesErrorMessage
