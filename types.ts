@@ -1,4 +1,5 @@
 import { CardinalPoint } from "./constants/constants"
+import { GameEntryErrorMessage } from "./constants/errors"
 
 interface MapElement {
     xAxis: number
@@ -22,4 +23,11 @@ export interface Map {
     height: number,
 }
 
-export type GameEntryData = string[][]
+export type GameEntryLine = string[]
+
+export type GameEntryData = GameEntryLine[]
+
+export interface GameEntryError extends Error {
+    line?: GameEntryLine
+    message: GameEntryErrorMessage
+}
