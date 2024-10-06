@@ -27,7 +27,7 @@ export type GameEntryLine = string[]
 
 export type GameEntryData = GameEntryLine[]
 
-export interface GameEntryError {
-    line: GameEntryLine
+export interface GameEntryError extends Error {
+    line?: GameEntryLine
     message: GameEntryErrorMessage
 }

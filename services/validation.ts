@@ -1,27 +1,39 @@
 import { CardinalPoint, FileElement } from "../constants/constants"
-import { GameEntryErrorMessage } from "../constants/errors"
-import { incompleteTreasureDataset } from "../tests/services/validation/mocks"
+import { GameEntryErrorMessage, GameEntryErrorName } from "../constants/errors"
+import { GameEntryError } from "../types"
+import { addError } from "./error"
 
-export const validateEntry = (mapElements: string[][]) => {
+export const validateEntry = (mapElements: string[][]): GameEntryError[] => {
     const mountains = getAllItemsOfType(mapElements, FileElement.MOUNTAIN)
     const adventurers = getAllItemsOfType(mapElements, FileElement.ADVENTURER)
     const treasures = getAllItemsOfType(mapElements, FileElement.TREASURE)
     const maps = getAllItemsOfType(mapElements, FileElement.MAP)
 
-    validateMap(maps)
-    validateMountains(mountains)
-    validateAdventurers(adventurers)
-    validateTreasures(treasures)
+    const mapErrors = validateMap(maps)
+    const mountainErrors = validateMountains(mountains)
+    const adventurerErrors = validateAdventurers(adventurers)
+    const treasureErrors = validateTreasures(treasures)
+
+    return [...mapErrors]
 }
 
-const validateMap = (maps: string[][]) => {
+const validateMap = (maps: string[][]): GameEntryError[] => {
+
     if (!maps.length) {
-        throw GameEntryErrorMessage.INVALID_MAP
+        return [{
+            name: GameEntryErrorName.INVALID_MAP,
+            message: GameEntryErrorMessage.INVALID_MAP,
+        }]
     }
 
     if (maps.length > 1) {
-        throw GameEntryErrorMessage.MULTI_MAP
+        return [{
+            name: GameEntryErrorName.MULTI_MAP,
+            message: GameEntryErrorMessage.MULTI_MAP,
+        }]
     }
+
+    const errors: GameEntryError[] = []
 
     const map = maps[0]
 
@@ -29,12 +41,22 @@ const validateMap = (maps: string[][]) => {
     const yAxis = map[2]
 
     if (isNaN(parseFloat(xAxis)) || isNaN(parseFloat(yAxis))) {
-        throw GameEntryErrorMessage.NON_NUMBER_COORDINATES
+        addError(errors, {
+            message: GameEntryErrorMessage.NON_NUMBER_COORDINATES,
+            name: GameEntryErrorName.NON_NUMBER_COORDINATES,
+            line: map
+        })
     }
 
     if (parseFloat(xAxis) < 2 || parseFloat(yAxis) < 2) {
-        throw GameEntryErrorMessage.SMALL_MAP
+        addError(errors, {
+            message: GameEntryErrorMessage.SMALL_MAP,
+            name: GameEntryErrorName.SMALL_MAP,
+            line: map
+        })
     }
+
+    return errors
 }
 
 const validateAdventurers = (adventurers: string[][]) => {

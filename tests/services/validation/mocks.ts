@@ -1,4 +1,5 @@
-import { GameEntryData } from "../../../types"
+import { GameEntryErrorMessage, GameEntryErrorName } from "../../../constants/errors"
+import { GameEntryData, GameEntryError } from "../../../types"
 
 // map
 export const noMapDataset: GameEntryData = [
@@ -7,6 +8,10 @@ export const noMapDataset: GameEntryData = [
     ["T", "4", "5", "1"],
 ]
 
+export const noMapError: GameEntryError = {
+    message: GameEntryErrorMessage.INVALID_MAP,
+    name: GameEntryErrorName.INVALID_MAP
+}
 export const multiMapDataset: GameEntryData = [
     ["C", "2", "3"],
     ["C", "6", "4"],
@@ -15,75 +20,196 @@ export const multiMapDataset: GameEntryData = [
     ["T", "4", "5", "1"],
 ]
 
+export const multiMapError: GameEntryError = {
+    message: GameEntryErrorMessage.MULTI_MAP,
+    name: GameEntryErrorName.MULTI_MAP,
+}
+
+const nonNumberXAxisMapLine = ["C", "A", "2"]
+
 export const nonNumberXAxisMapDataset: GameEntryData = [
-    ["C", "A", "2"]
+    nonNumberXAxisMapLine
 ]
+
+export const nonNumberXAxisMapError: GameEntryError = {
+    line: nonNumberXAxisMapLine,
+    message: GameEntryErrorMessage.NON_NUMBER_COORDINATES,
+    name: GameEntryErrorName.NON_NUMBER_COORDINATES
+}
+
+const nonNumberYAxisMapLine = ["C", "4", "E"]
 
 export const nonNumberYAxisMapDataset: GameEntryData = [
     ["C", "4", "E"]
 ]
 
+export const nonNumberYAxisMapError: GameEntryError = {
+    line: nonNumberYAxisMapLine,
+    message: GameEntryErrorMessage.NON_NUMBER_COORDINATES,
+    name: GameEntryErrorName.NON_NUMBER_COORDINATES
+}
+
+const smallMapLine = ["C", "1", "2"]
+
 export const smallMapDataset: GameEntryData = [
-    ["C", "1", "2"]
+    smallMapLine
 ]
+
+export const smallMapError: GameEntryError = {
+    line: smallMapLine,
+    message: GameEntryErrorMessage.SMALL_MAP,
+    name: GameEntryErrorName.SMALL_MAP
+}
 
 // adventurers
+
+const regularMap = ["C", "2", "3"]
+
+const incompleteAdventurer = ["A", "2", "3"]
+
 export const incompleteAdventurerDataset: GameEntryData = [
-    ["C", "2", "3"],
-    ["A", "2", "3"]
+    regularMap,
+    incompleteAdventurer
 ]
+
+export const incompleteAdventurerError: GameEntryError = {
+    line: incompleteAdventurer,
+    message: GameEntryErrorMessage.INVALID_ADVENTURER,
+    name: GameEntryErrorName.INVALID_ADVENTURER
+}
+
+const nonNumberXAxisAdventurer = ["A", "Spike", "A", "5", "S", "AAA"]
 
 export const nonNumberXAxisAdventurerDataset: GameEntryData = [
-    ["C", "2", "3"],
-    ["A", "Spike", "A", "5", "S", "AAA"]
+    regularMap,
+    nonNumberXAxisAdventurer
 ]
 
+export const nonNumberXAxisAdventurerError: GameEntryError = {
+    line: nonNumberXAxisAdventurer,
+    message: GameEntryErrorMessage.NON_NUMBER_COORDINATES,
+    name: GameEntryErrorName.NON_NUMBER_COORDINATES
+}
+
+const nonNumberYAxisAdventurer = ["A", "Jet", "2", "Z", "S", "AAGA"]
+
 export const nonNumberYAxisAdventurerDataset: GameEntryData = [
-    ["C", "2", "3"],
+    regularMap,
     ["A", "Jet", "2", "Z", "S", "AAGA"]
 ]
 
+export const nonNumberYAxisAdventurerError: GameEntryError = {
+    line: nonNumberYAxisAdventurer,
+    message: GameEntryErrorMessage.NON_NUMBER_COORDINATES,
+    name: GameEntryErrorName.NON_NUMBER_COORDINATES
+}
+
+const nonCardinalAdventurer = ["A", "Jet", "2", "1", "R", "AAGA"]
+
 export const nonCardinalAdventurerDataset: GameEntryData = [
-    ["C", "2", "3"],
-    ["A", "Jet", "2", "1", "R", "AAGA"]
+    regularMap,
+    nonCardinalAdventurer
 ]
-// endregion
+
+export const nonCardinalAdventurerError: GameEntryError = {
+    line: nonCardinalAdventurer,
+    message: GameEntryErrorMessage.NON_CARDINAL_DIRECTION,
+    name: GameEntryErrorName.NON_CARDINAL_DIRECTION
+}
 
 // mountains
+const incompleteMountain = ["M", "3"]
+
 export const incompleteMountainDataset: GameEntryData = [
-    ["C", "2", "3"],
-    ["M", "3"]
+    regularMap,
+    incompleteMountain
 ]
+
+export const incompleteMountainError: GameEntryError = {
+    line: incompleteMountain,
+    message: GameEntryErrorMessage.INVALID_MOUNTAIN,
+    name: GameEntryErrorName.INVALID_MOUNTAIN
+}
+
+const nonNumberXAxisMountain = ["M", "A", "5"]
 
 export const nonNumberXAxisMountainDataset: GameEntryData = [
-    ["C", "2", "3"],
-    ["M", "A", "5"]
+    regularMap,
+    nonNumberXAxisMountain
 ]
 
+export const nonNumberXAxisMountainError: GameEntryError = {
+    line: nonNumberXAxisMountain,
+    message: GameEntryErrorMessage.NON_NUMBER_COORDINATES,
+    name: GameEntryErrorName.NON_NUMBER_COORDINATES
+}
+
+const nonNumberYAxisMountain = ["M", "2", "Y"]
+
 export const nonNumberYAxisMountainDataset: GameEntryData = [
-    ["C", "2", "3"],
-    ["M", "2", "Y"]
+    regularMap,
+    nonNumberYAxisMountain
 ]
+
+export const nonNumberYAxisMountainError: GameEntryError = {
+    line: nonNumberYAxisMountain,
+    message: GameEntryErrorMessage.NON_NUMBER_COORDINATES,
+    name: GameEntryErrorName.NON_NUMBER_COORDINATES
+}
+
 // endregion
 
 // treasures
+const incompleteTreasure = ["T", "2"]
+
 export const incompleteTreasureDataset: GameEntryData = [
-    ["C", "2", "3"],
-    ["T", "2"]
+    regularMap,
+    incompleteTreasure
 ]
+
+export const incompleteTreasureError: GameEntryError = {
+    line: incompleteTreasure,
+    message: GameEntryErrorMessage.INVALID_TREASURE,
+    name: GameEntryErrorName.INVALID_TREASURE
+}
+
+const nonNumberXAxisTreasure = ["T", "A", "5", "1"]
 
 export const nonNumberXAxisTreasureDataset: GameEntryData = [
-    ["C", "2", "3"],
-    ["T", "A", "5", "1"]
+    regularMap,
+    nonNumberXAxisTreasure
 ]
+
+export const nonNumberXAxisTreasureError: GameEntryError = {
+    line: nonNumberXAxisTreasure,
+    message: GameEntryErrorMessage.NON_NUMBER_COORDINATES,
+    name: GameEntryErrorName.NON_NUMBER_COORDINATES
+}
+
+const nonNumberYAxisTreasure = ["T", "2", "Y", "1"]
 
 export const nonNumberYAxisTreasureDataset: GameEntryData = [
-    ["C", "2", "3"],
-    ["T", "2", "Y", "1"]
+    regularMap,
+    nonNumberYAxisTreasure
 ]
 
+export const nonNumberYAxisTreasureError: GameEntryError = {
+    line: nonNumberYAxisTreasure,
+    message: GameEntryErrorMessage.NON_NUMBER_COORDINATES,
+    name: GameEntryErrorName.NON_NUMBER_COORDINATES
+}
+
+const nonNumberTreasureCount = ["T", "2", "1", "V"]
+
 export const nonNumberCountTreasureDataset: GameEntryData = [
-    ["C", "2", "3"],
-    ["T", "2", "1", "V"]
+    regularMap,
+    nonNumberTreasureCount
 ]
+
+export const nonNumberCountTreasureError: GameEntryError = {
+    line: nonNumberTreasureCount,
+    message: GameEntryErrorMessage.NON_NUMBER_TREASURE_QUANTITY,
+    name: GameEntryErrorName.NON_NUMBER_TREASURE_QUANTITY
+}
+
 // endregion

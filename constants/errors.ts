@@ -9,3 +9,15 @@ export enum GameEntryErrorMessage {
     INVALID_TREASURE = 'Please specify the following values for treasures: "A - x-axis value - y-axis value - quantity"',
     NON_NUMBER_TREASURE_QUANTITY = "Please specify a number for treasure quantity"
 }
+
+export enum GameEntryErrorName {
+    NON_NUMBER_COORDINATES = "NonNumberCoordinates",
+    INVALID_MAP = "InvalidMap",
+    MULTI_MAP = "MultiMap",
+    SMALL_MAP = "SmallMap",
+    INVALID_ADVENTURER = "InvalidAdventurer",
+    NON_CARDINAL_DIRECTION = "NonCardinalDirection",
+    INVALID_MOUNTAIN = "InvalidMountain",
+    INVALID_TREASURE = "InvalidTreasure",
+    NON_NUMBER_TREASURE_QUANTITY = "NonNumberTreasureQuantity"
+}

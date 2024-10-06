@@ -1,9 +1,6 @@
-import { GameEntryErrorMessage } from "../constants/errors";
-import { GameEntryLine } from "../types";
+import { GameEntryErrorMessage, GameEntryErrorName } from "../constants/errors";
+import { GameEntryError, GameEntryLine } from "../types";
 
-export const buildError = (line: GameEntryLine, message: GameEntryErrorMessage) => {
-    return {
-        line,
-        message
-    }
+export const addError = (previousErrors: GameEntryError[], newError: GameEntryError) => {
+    previousErrors.push(newError)
 }
