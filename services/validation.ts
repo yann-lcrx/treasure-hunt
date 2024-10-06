@@ -1,6 +1,7 @@
 import { CardinalPoint, FileElement } from "../constants/constants"
 import { GameEntryErrorMessage, GameEntryErrorName } from "../constants/errors"
 import { GameEntryError } from "../types"
+import { getAllItemsOfType } from "../utils"
 import { addError } from "./error"
 
 export const validateEntry = (mapElements: string[][]): GameEntryError[] => {
@@ -18,8 +19,6 @@ export const validateEntry = (mapElements: string[][]): GameEntryError[] => {
 }
 
 const validateMap = (maps: string[][]): GameEntryError[] => {
-    console.log(maps)
-
     if (!maps.length) {
         return [{
             name: GameEntryErrorName.INVALID_MAP,
@@ -158,8 +157,4 @@ const validateTreasures = (treasures: string[][]): GameEntryError[] => {
     })
 
     return errors
-}
-
-const getAllItemsOfType = (mapElements: string[][], item: FileElement) => {
-    return mapElements.filter((element) => { return element[0] === item })
 }

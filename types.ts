@@ -1,4 +1,4 @@
-import { CardinalPoint } from "./constants/constants"
+import { CardinalPoint, Instruction } from "./constants/constants"
 import { GameEntryErrorMessage } from "./constants/errors"
 
 interface MapElement {
@@ -30,4 +30,19 @@ export type GameEntryData = GameEntryLine[]
 export interface GameEntryError extends Error {
     line?: GameEntryLine
     message: GameEntryErrorMessage
+}
+
+export interface InGameAdventurer {
+    name: string
+    coordinates: {
+        x: number
+        y: number
+    }
+    direction: CardinalPoint
+    treasureCount: number
+    instructions: Instruction[]
+}
+
+export interface GameState {
+    adventurers: InGameAdventurer[]
 }
