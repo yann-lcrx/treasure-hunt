@@ -1,8 +1,7 @@
-import { GameEntryErrorMessage } from "../../../constants/errors"
 import { validateEntry } from "../../../services/validation"
-import { incompleteAdventurerDataset, incompleteMountainDataset, incompleteTreasureDataset, multiMapDataset, multiMapError, noMapDataset, noMapError, nonCardinalAdventurerDataset, nonNumberCountTreasureDataset, nonNumberXAxisAdventurerDataset, nonNumberXAxisMapDataset, nonNumberXAxisMapError, nonNumberXAxisMountainDataset, nonNumberXAxisTreasureDataset, nonNumberYAxisAdventurerDataset, nonNumberYAxisMapDataset, nonNumberYAxisMapError, nonNumberYAxisMountainDataset, nonNumberYAxisTreasureDataset, smallMapDataset, smallMapError } from "./mocks"
+import { incompleteAdventurerDataset, incompleteAdventurerError, incompleteMountainDataset, incompleteTreasureDataset, multiMapDataset, multiMapError, noMapDataset, noMapError, nonCardinalAdventurerDataset, nonCardinalAdventurerError, nonNumberCountTreasureDataset, nonNumberXAxisAdventurerDataset, nonNumberXAxisAdventurerError, nonNumberXAxisMapDataset, nonNumberXAxisMapError, nonNumberXAxisMountainDataset, nonNumberXAxisTreasureDataset, nonNumberYAxisAdventurerDataset, nonNumberYAxisAdventurerError, nonNumberYAxisMapDataset, nonNumberYAxisMapError, nonNumberYAxisMountainDataset, nonNumberYAxisTreasureDataset, smallMapDataset, smallMapError } from "./mocks"
 
-describe.only("the validation service - map", () => {
+describe("the validation service - map", () => {
 
     it("should throw an error if there is no map line", () => {
         expect(validateEntry(noMapDataset)).toEqual(expect.arrayContaining([noMapError]))
@@ -25,23 +24,23 @@ describe.only("the validation service - map", () => {
     })
 })
 
-// describe("the validation service - adventurers", () => {
-//     it("should throw an error if an adventurer's line doesn't have all values", () => {
-//         expect(validateEntry(incompleteAdventurerDataset)).toEqual(expect.arrayContaining(GameEntryErrorMessage.INVALID_ADVENTURER))
-//     })
+describe("the validation service - adventurers", () => {
+    it("should throw an error if an adventurer's line doesn't have all values", () => {
+        expect(validateEntry(incompleteAdventurerDataset)).toEqual(expect.arrayContaining([incompleteAdventurerError]))
+    })
 
-//     it("should throw an error if x axis is not a number", () => {
-//         expect(validateEntry(nonNumberXAxisAdventurerDataset)).toEqual(expect.arrayContaining(GameEntryErrorMessage.NON_NUMBER_COORDINATES))
-//     })
+    it("should throw an error if x axis is not a number", () => {
+        expect(validateEntry(nonNumberXAxisAdventurerDataset)).toEqual(expect.arrayContaining([nonNumberXAxisAdventurerError]))
+    })
 
-//     it("should throw an error if y axis is not a number", () => {
-//         expect(validateEntry(nonNumberYAxisAdventurerDataset)).toEqual(expect.arrayContaining(GameEntryErrorMessage.NON_NUMBER_COORDINATES))
-//     })
+    it("should throw an error if y axis is not a number", () => {
+        expect(validateEntry(nonNumberYAxisAdventurerDataset)).toEqual(expect.arrayContaining([nonNumberYAxisAdventurerError]))
+    })
 
-//     it("should throw an error if adventurer direction is not a cardinal point", () => {
-//         expect(validateEntry(nonCardinalAdventurerDataset)).toEqual(expect.arrayContaining(GameEntryErrorMessage.NON_CARDINAL_DIRECTION))
-//     })
-// })
+    it("should throw an error if adventurer direction is not a cardinal point", () => {
+        expect(validateEntry(nonCardinalAdventurerDataset)).toEqual(expect.arrayContaining([nonCardinalAdventurerError]))
+    })
+})
 
 // describe("the validation service - treasures", () => {
 //     it("should throw an error if an treasure's line doesn't have all values", () => {

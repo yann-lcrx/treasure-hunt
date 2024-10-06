@@ -10,11 +10,11 @@ export const validateEntry = (mapElements: string[][]): GameEntryError[] => {
     const maps = getAllItemsOfType(mapElements, FileElement.MAP)
 
     const mapErrors = validateMap(maps)
-    const mountainErrors = validateMountains(mountains)
     const adventurerErrors = validateAdventurers(adventurers)
+    const mountainErrors = validateMountains(mountains)
     const treasureErrors = validateTreasures(treasures)
 
-    return [...mapErrors]
+    return [...mapErrors, ...adventurerErrors]
 }
 
 const validateMap = (maps: string[][]): GameEntryError[] => {
@@ -59,10 +59,17 @@ const validateMap = (maps: string[][]): GameEntryError[] => {
     return errors
 }
 
-const validateAdventurers = (adventurers: string[][]) => {
+const validateAdventurers = (adventurers: string[][]): GameEntryError[] => {
+    const errors: GameEntryError[] = []
+
     adventurers.forEach((adventurer) => {
         if (adventurer.length !== 6) {
-            throw GameEntryErrorMessage.INVALID_ADVENTURER
+            addError(errors, {
+                message: GameEntryErrorMessage.INVALID_ADVENTURER,
+                name: GameEntryErrorName.INVALID_ADVENTURER,
+                line: adventurer
+            })
+            return
         }
 
         const xAxis = adventurer[2]
@@ -70,13 +77,23 @@ const validateAdventurers = (adventurers: string[][]) => {
         const direction = adventurer[4]
 
         if (isNaN(parseFloat(xAxis)) || isNaN(parseFloat(yAxis))) {
-            throw GameEntryErrorMessage.NON_NUMBER_COORDINATES
+            addError(errors, {
+                message: GameEntryErrorMessage.NON_NUMBER_COORDINATES,
+                name: GameEntryErrorName.NON_NUMBER_COORDINATES,
+                line: adventurer
+            })
         }
 
         if (!Object.values<string>(CardinalPoint).includes(direction)) {
-            throw GameEntryErrorMessage.NON_CARDINAL_DIRECTION
+            addError(errors, {
+                message: GameEntryErrorMessage.NON_CARDINAL_DIRECTION,
+                name: GameEntryErrorName.NON_CARDINAL_DIRECTION,
+                line: adventurer
+            })
         }
+
     })
+    return errors
 }
 
 const validateMountains = (mountains: string[][]) => {
