@@ -1,5 +1,6 @@
 import { CardinalPoint, FileElement } from "../constants/constants"
-import { incompleteAdventurerErrorMessage, incompleteMountainErrorMessage, incompleteTreasureErrorMessage, invalidMapErrorMessage, multiMapErrorMessage, nonCardinalAdventurerErrorMessage, nonNumberCoordinatesErrorMessage, nonNumberCountTreasureErrorMessage, smallMapErrorMessage } from "../constants/errors"
+import { GameEntryErrorMessage } from "../constants/errors"
+import { incompleteTreasureDataset } from "../tests/services/validation/mocks"
 
 export const validateEntry = (mapElements: string[][]) => {
     const mountains = getAllItemsOfType(mapElements, FileElement.MOUNTAIN)
@@ -15,11 +16,11 @@ export const validateEntry = (mapElements: string[][]) => {
 
 const validateMap = (maps: string[][]) => {
     if (!maps.length) {
-        throw invalidMapErrorMessage
+        throw GameEntryErrorMessage.INVALID_MAP
     }
 
     if (maps.length > 1) {
-        throw multiMapErrorMessage
+        throw GameEntryErrorMessage.MULTI_MAP
     }
 
     const map = maps[0]
@@ -28,18 +29,18 @@ const validateMap = (maps: string[][]) => {
     const yAxis = map[2]
 
     if (isNaN(parseFloat(xAxis)) || isNaN(parseFloat(yAxis))) {
-        throw nonNumberCoordinatesErrorMessage
+        throw GameEntryErrorMessage.NON_NUMBER_COORDINATES
     }
 
     if (parseFloat(xAxis) < 2 || parseFloat(yAxis) < 2) {
-        throw smallMapErrorMessage
+        throw GameEntryErrorMessage.SMALL_MAP
     }
 }
 
 const validateAdventurers = (adventurers: string[][]) => {
     adventurers.forEach((adventurer) => {
         if (adventurer.length !== 6) {
-            throw incompleteAdventurerErrorMessage
+            throw GameEntryErrorMessage.INVALID_ADVENTURER
         }
 
         const xAxis = adventurer[2]
@@ -47,11 +48,11 @@ const validateAdventurers = (adventurers: string[][]) => {
         const direction = adventurer[4]
 
         if (isNaN(parseFloat(xAxis)) || isNaN(parseFloat(yAxis))) {
-            throw nonNumberCoordinatesErrorMessage
+            throw GameEntryErrorMessage.NON_NUMBER_COORDINATES
         }
 
         if (!Object.values<string>(CardinalPoint).includes(direction)) {
-            throw nonCardinalAdventurerErrorMessage
+            throw GameEntryErrorMessage.NON_CARDINAL_DIRECTION
         }
     })
 }
@@ -60,14 +61,14 @@ const validateMountains = (mountains: string[][]) => {
     mountains.forEach((mountain) => {
 
         if (mountain.length !== 3) {
-            throw incompleteMountainErrorMessage
+            throw GameEntryErrorMessage.INVALID_MOUNTAIN
         }
 
         const xAxis = mountain[1]
         const yAxis = mountain[2]
 
         if (isNaN(parseFloat(xAxis)) || isNaN(parseFloat(yAxis))) {
-            throw nonNumberCoordinatesErrorMessage
+            throw GameEntryErrorMessage.NON_NUMBER_COORDINATES
         }
     })
 }
@@ -76,7 +77,7 @@ const validateTreasures = (treasures: string[][]) => {
     treasures.forEach((treasure) => {
 
         if (treasure.length !== 4) {
-            throw incompleteTreasureErrorMessage
+            throw GameEntryErrorMessage.INVALID_TREASURE
         }
 
         const xAxis = treasure[1]
@@ -84,11 +85,11 @@ const validateTreasures = (treasures: string[][]) => {
         const count = treasure[3]
 
         if (isNaN(parseFloat(xAxis)) || isNaN(parseFloat(yAxis))) {
-            throw nonNumberCoordinatesErrorMessage
+            throw GameEntryErrorMessage.NON_NUMBER_COORDINATES
         }
 
         if (isNaN(parseFloat(count))) {
-            throw nonNumberCountTreasureErrorMessage
+            throw GameEntryErrorMessage.NON_NUMBER_TREASURE_QUANTITY
         }
     })
 }
