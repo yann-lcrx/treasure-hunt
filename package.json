@@ -4,7 +4,9 @@
   "main": "index.ts",
   "author": "Yannick <yannlacroix@fastmail.com>",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "csv-parse": "^5.5.6"
+  },
   "devDependencies": {
     "@types/jest": "^29.5.13",
     "jest": "^29.7.0",
