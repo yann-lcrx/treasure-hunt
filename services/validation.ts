@@ -1,24 +1,40 @@
 import { CardinalPoint, FileElement } from "../constants/constants"
 import { GameEntryErrorMessage, GameEntryErrorName } from "../constants/errors"
-import { GameEntryError } from "../types"
+import { Coordinates, GameEntryError, GameEntryLine } from "../types"
 import { getAllItemsOfType } from "../utils"
-import { addError } from "./error"
+import { addError, buildNonNumberCoordinatesError, buildOutOfBoundsError } from "./error"
 
-export const validateEntry = (mapElements: string[][]): GameEntryError[] => {
+export const validateEntry = (mapElements: GameEntryLine[]): GameEntryError[] => {
     const mountains = getAllItemsOfType(mapElements, FileElement.MOUNTAIN)
     const adventurers = getAllItemsOfType(mapElements, FileElement.ADVENTURER)
     const treasures = getAllItemsOfType(mapElements, FileElement.TREASURE)
     const maps = getAllItemsOfType(mapElements, FileElement.MAP)
 
     const mapErrors = validateMap(maps)
-    const adventurerErrors = validateAdventurers(adventurers)
-    const treasureErrors = validateTreasures(treasures)
-    const mountainErrors = validateMountains(mountains)
+
+    if (mapErrors.length > 0) {
+        return mapErrors
+    }
+
+    const map = maps[0]
+
+    const adventurerErrors = validateAdventurers(adventurers, map)
+    const treasureErrors = validateTreasures(treasures, map)
+    const mountainErrors = validateMountains(mountains, map)
 
     return [...mapErrors, ...adventurerErrors, ...treasureErrors, ...mountainErrors]
 }
 
-const validateMap = (maps: string[][]): GameEntryError[] => {
+const isElementInBounds = (coordinates: Coordinates, map: GameEntryLine) => {
+    const { x, y } = coordinates
+
+    return x >= 0
+        && y >= 0
+        && x < parseFloat(map[1])
+        && y < parseFloat(map[2])
+}
+
+const validateMap = (maps: GameEntryLine[]): GameEntryError[] => {
     if (!maps.length) {
         return [{
             name: GameEntryErrorName.INVALID_MAP,
@@ -41,11 +57,7 @@ const validateMap = (maps: string[][]): GameEntryError[] => {
     const yAxis = map[2]
 
     if (isNaN(parseFloat(xAxis)) || isNaN(parseFloat(yAxis))) {
-        addError(errors, {
-            message: GameEntryErrorMessage.NON_NUMBER_COORDINATES,
-            name: GameEntryErrorName.NON_NUMBER_COORDINATES,
-            line: map
-        })
+        buildNonNumberCoordinatesError(errors, map)
     }
 
     if (parseFloat(xAxis) < 2 || parseFloat(yAxis) < 2) {
@@ -59,7 +71,7 @@ const validateMap = (maps: string[][]): GameEntryError[] => {
     return errors
 }
 
-const validateAdventurers = (adventurers: string[][]): GameEntryError[] => {
+const validateAdventurers = (adventurers: GameEntryLine[], map: GameEntryLine): GameEntryError[] => {
     const errors: GameEntryError[] = []
 
     adventurers.forEach((adventurer) => {
@@ -72,16 +84,12 @@ const validateAdventurers = (adventurers: string[][]): GameEntryError[] => {
             return
         }
 
-        const xAxis = adventurer[2]
-        const yAxis = adventurer[3]
+        const x = parseFloat(adventurer[2])
+        const y = parseFloat(adventurer[3])
         const direction = adventurer[4]
 
-        if (isNaN(parseFloat(xAxis)) || isNaN(parseFloat(yAxis))) {
-            addError(errors, {
-                message: GameEntryErrorMessage.NON_NUMBER_COORDINATES,
-                name: GameEntryErrorName.NON_NUMBER_COORDINATES,
-                line: adventurer
-            })
+        if (isNaN(x) || isNaN(y)) {
+            buildNonNumberCoordinatesError(errors, adventurer)
         }
 
         if (!Object.values<string>(CardinalPoint).includes(direction)) {
@@ -92,11 +100,15 @@ const validateAdventurers = (adventurers: string[][]): GameEntryError[] => {
             })
         }
 
+        if (!isElementInBounds({ x, y }, map)) {
+            buildOutOfBoundsError(errors, adventurer)
+        }
+
     })
     return errors
 }
 
-const validateMountains = (mountains: string[][]) => {
+const validateMountains = (mountains: GameEntryLine[], map: GameEntryLine) => {
     const errors: GameEntryError[] = []
 
     mountains.forEach((mountain) => {
@@ -108,22 +120,23 @@ const validateMountains = (mountains: string[][]) => {
             })
         }
 
-        const xAxis = mountain[1]
-        const yAxis = mountain[2]
+        const x = parseFloat(mountain[1])
+        const y = parseFloat(mountain[2])
 
-        if (isNaN(parseFloat(xAxis)) || isNaN(parseFloat(yAxis))) {
-            addError(errors, {
-                name: GameEntryErrorName.NON_NUMBER_COORDINATES,
-                message: GameEntryErrorMessage.NON_NUMBER_COORDINATES,
-                line: mountain
-            })
+        if (isNaN(x) || isNaN(y)) {
+            buildNonNumberCoordinatesError(errors, mountain)
+        }
+
+        if (!isElementInBounds({ x, y }, map)) {
+            buildOutOfBoundsError(errors, mountain)
         }
     })
+
 
     return errors
 }
 
-const validateTreasures = (treasures: string[][]): GameEntryError[] => {
+const validateTreasures = (treasures: GameEntryLine[], map: GameEntryLine): GameEntryError[] => {
     const errors: GameEntryError[] = []
 
     treasures.forEach((treasure) => {
@@ -135,16 +148,12 @@ const validateTreasures = (treasures: string[][]): GameEntryError[] => {
             })
         }
 
-        const xAxis = treasure[1]
-        const yAxis = treasure[2]
+        const x = parseFloat(treasure[1])
+        const y = parseFloat(treasure[2])
         const count = treasure[3]
 
-        if (isNaN(parseFloat(xAxis)) || isNaN(parseFloat(yAxis))) {
-            addError(errors, {
-                name: GameEntryErrorName.NON_NUMBER_COORDINATES,
-                message: GameEntryErrorMessage.NON_NUMBER_COORDINATES,
-                line: treasure
-            })
+        if (isNaN(x) || isNaN(y)) {
+            buildNonNumberCoordinatesError(errors, treasure)
         }
 
         if (isNaN(parseFloat(count))) {
@@ -153,6 +162,10 @@ const validateTreasures = (treasures: string[][]): GameEntryError[] => {
                 message: GameEntryErrorMessage.NON_NUMBER_TREASURE_QUANTITY,
                 line: treasure
             })
+        }
+
+        if (!isElementInBounds({ x, y }, map)) {
+            buildOutOfBoundsError(errors, treasure)
         }
     })
 

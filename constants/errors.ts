@@ -7,7 +7,8 @@ export enum GameEntryErrorMessage {
     NON_CARDINAL_DIRECTION = "Please specify a cardinal direction between these values: N - E - S - W",
     INVALID_MOUNTAIN = 'Please specify the following values for mountains: "A - x-axis value - y-axis value"',
     INVALID_TREASURE = 'Please specify the following values for treasures: "A - x-axis value - y-axis value - quantity"',
-    NON_NUMBER_TREASURE_QUANTITY = "Please specify a number for treasure quantity"
+    NON_NUMBER_TREASURE_QUANTITY = "Please specify a number for treasure quantity",
+    ELEMENT_OUT_OF_BOUNDS = "Element is out of the game boundaries"
 }
 
 export enum GameEntryErrorName {
@@ -19,7 +20,8 @@ export enum GameEntryErrorName {
     NON_CARDINAL_DIRECTION = "NonCardinalDirection",
     INVALID_MOUNTAIN = "InvalidMountain",
     INVALID_TREASURE = "InvalidTreasure",
-    NON_NUMBER_TREASURE_QUANTITY = "NonNumberTreasureQuantity"
+    NON_NUMBER_TREASURE_QUANTITY = "NonNumberTreasureQuantity",
+    ELEMENT_OUT_OF_BOUNDS = "ElementOutOfBounds"
 }
 
 export enum GameSetupErrorMessage {

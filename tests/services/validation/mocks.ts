@@ -1,3 +1,4 @@
+import { FileElement } from "../../../constants/constants"
 import { GameEntryErrorMessage, GameEntryErrorName } from "../../../constants/errors"
 import { GameEntryData, GameEntryError } from "../../../types"
 
@@ -213,6 +214,26 @@ export const nonNumberCountTreasureError: GameEntryError = {
 }
 
 // endregion
+
+const oufOfBoundsLines = [
+    [FileElement.ADVENTURER, 'Lara', '10', '1', 'S', 'AADADAGGA'],
+    [FileElement.ADVENTURER, 'Indiana', '1', '44', 'N', 'AADADAGGA'],
+    [FileElement.MOUNTAIN, '12', '1'],
+    [FileElement.MOUNTAIN, '1', '87'],
+    [FileElement.TREASURE, '10', '1', '1'],
+    [FileElement.TREASURE, '2', '-54', '2']
+]
+
+export const outOfBoundsDataset = [
+    [FileElement.MAP, '3', '4'],
+    ...oufOfBoundsLines
+]
+
+export const outOfBoundsErrors: GameEntryError[] = oufOfBoundsLines.map<GameEntryError>((line) => ({
+    line,
+    name: GameEntryErrorName.ELEMENT_OUT_OF_BOUNDS,
+    message: GameEntryErrorMessage.ELEMENT_OUT_OF_BOUNDS
+}))
 
 export const validEntryDataset = [
     ['C​', '3', '4'],
