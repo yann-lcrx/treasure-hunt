@@ -63,6 +63,13 @@ const turnLeft = (adventurer: InGameAdventurer): InGameAdventurer => {
     }
 }
 
+const moveAdventurer = (adventurer: InGameAdventurer, coordinates: Coordinates) => {
+    return {
+        ...adventurer,
+        coordinates
+    }
+}
+
 const attemptMoveSouth = (
     adventurer: InGameAdventurer,
     map: InGameMap,
@@ -76,15 +83,11 @@ const attemptMoveSouth = (
         x, y: y + 1
     }
 
-    if (isPositionOccupied(expectedCoordinates, adventurer.name, mountains, adventurers)) {
+    if (isPositionOccupied(expectedCoordinates, adventurer.name, mountains, adventurers) || y >= map.height - 1) {
         return adventurer
     }
 
-    return {
-        ...adventurer,
-        coordinates: (y < map.height - 1 ? expectedCoordinates : coordinates)
-
-    }
+    return moveAdventurer(adventurer, expectedCoordinates)
 }
 
 const attemptMoveNorth = (
@@ -92,21 +95,17 @@ const attemptMoveNorth = (
     mountains: InGameMountain[],
     adventurers: InGameAdventurer[],
 ) => {
-    const { coordinates } = adventurer
-    const { x, y } = coordinates
+    const { coordinates: { x, y } } = adventurer
 
     const expectedCoordinates = {
         x, y: y - 1
     }
 
-    if (isPositionOccupied(expectedCoordinates, adventurer.name, mountains, adventurers)) {
+    if (isPositionOccupied(expectedCoordinates, adventurer.name, mountains, adventurers) || y === 0) {
         return adventurer
     }
 
-    return {
-        ...adventurer,
-        coordinates: (y > 0 ? expectedCoordinates : coordinates)
-    }
+    return moveAdventurer(adventurer, expectedCoordinates)
 }
 
 const attemptMoveEast = (
@@ -115,21 +114,17 @@ const attemptMoveEast = (
     mountains: InGameMountain[],
     adventurers: InGameAdventurer[]
 ) => {
-    const { coordinates } = adventurer
-    const { x, y } = coordinates
+    const { coordinates: { x, y } } = adventurer
 
     const expectedCoordinates = {
         x: x + 1, y
     }
 
-    if (isPositionOccupied(expectedCoordinates, adventurer.name, mountains, adventurers)) {
+    if (isPositionOccupied(expectedCoordinates, adventurer.name, mountains, adventurers) || x >= map.width - 1) {
         return adventurer
     }
 
-    return {
-        ...adventurer,
-        coordinates: x < map.width - 1 ? expectedCoordinates : coordinates
-    }
+    return moveAdventurer(adventurer, expectedCoordinates)
 }
 
 const attemptMoveWest = (
@@ -137,21 +132,17 @@ const attemptMoveWest = (
     mountains: InGameMountain[],
     adventurers: InGameAdventurer[]
 ) => {
-    const { coordinates } = adventurer
-    const { x, y } = coordinates
+    const { coordinates: { x, y } } = adventurer
 
     const expectedCoordinates = {
         x: x - 1, y
     }
 
-    if (isPositionOccupied(expectedCoordinates, adventurer.name, mountains, adventurers)) {
+    if (isPositionOccupied(expectedCoordinates, adventurer.name, mountains, adventurers) || x === 0) {
         return adventurer
     }
 
-    return {
-        ...adventurer,
-        coordinates: x > 0 ? expectedCoordinates : coordinates
-    }
+    return moveAdventurer(adventurer, expectedCoordinates)
 }
 
 const attemptMoveForward = (
@@ -160,7 +151,7 @@ const attemptMoveForward = (
     mountains: InGameMountain[],
     adventurers: InGameAdventurer[]
 ): InGameAdventurer => {
-    const { direction, coordinates } = adventurer
+    const { direction } = adventurer
 
     if (direction === CardinalPoint.SOUTH) {
         return attemptMoveSouth(adventurer, map, mountains, adventurers)

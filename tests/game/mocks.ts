@@ -479,3 +479,76 @@ export const turnLeftOutput: GameState = {
         },
     ],
 }
+
+export const collectTreasureInput: GameState = {
+    map: {
+        width: 10,
+        height: 10,
+    },
+    adventurers: [
+        {
+            name: "Link",
+            direction: CardinalPoint.EAST,
+            coordinates: {
+                x: 4,
+                y: 5,
+            },
+            instructions: [
+                Instruction.FORWARD,
+                Instruction.FORWARD,
+                Instruction.RIGHT,
+                Instruction.RIGHT,
+                Instruction.FORWARD,
+                Instruction.FORWARD,
+                Instruction.RIGHT,
+                Instruction.RIGHT,
+                Instruction.FORWARD,
+            ],
+            treasureCount: 0
+        },
+    ],
+    mountains: [],
+    treasures: [{
+        coordinates: {
+            x: 5,
+            y: 5,
+        },
+        quantity: 2
+    }],
+    errors: []
+}
+
+export const collectTreasureOutput: GameState = {
+    ...collectTreasureInput,
+    adventurers: [
+        {
+            name: "Link",
+            direction: CardinalPoint.EAST,
+            coordinates: {
+                x: 5,
+                y: 5,
+            },
+            instructions: [
+                Instruction.FORWARD,
+                Instruction.FORWARD,
+                Instruction.RIGHT,
+                Instruction.RIGHT,
+                Instruction.FORWARD,
+                Instruction.FORWARD,
+                Instruction.RIGHT,
+                Instruction.RIGHT,
+                Instruction.FORWARD,
+            ],
+            treasureCount: 2
+        },
+    ],
+    mountains: [],
+    treasures: [{
+        coordinates: {
+            x: 5,
+            y: 5,
+        },
+        quantity: 0
+    }],
+    errors: []
+}

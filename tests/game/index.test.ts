@@ -1,5 +1,5 @@
 import { playGame } from "../../services/game"
-import { CrossingAdventurerEastInput, CrossingAdventurerEastOutput, CrossingAdventurerWestInput, CrossingAdventurerWestOutput, CrossingMountainNorthInput, CrossingMountainNorthOutput, CrossingMountainSouthInput, CrossingMountainSouthOutput, moveEastInput, moveEastOutput, moveNorthInput, moveNorthOutput, moveSouthInput, moveSouthOutput, moveWestInput, moveWestOutput, OOBEastInput, OOBEastOutput, OOBNorthInput, OOBNorthOutput, OOBSouthInput, OOBSouthOutput, OOBWestInput, OOBWestOutput, turnLeftInput, turnLeftOutput, turnRightInput, turnRightOutput } from "./mocks"
+import { collectTreasureInput, collectTreasureOutput, CrossingAdventurerEastInput, CrossingAdventurerEastOutput, CrossingAdventurerWestInput, CrossingAdventurerWestOutput, CrossingMountainNorthInput, CrossingMountainNorthOutput, CrossingMountainSouthInput, CrossingMountainSouthOutput, moveEastInput, moveEastOutput, moveNorthInput, moveNorthOutput, moveSouthInput, moveSouthOutput, moveWestInput, moveWestOutput, OOBEastInput, OOBEastOutput, OOBNorthInput, OOBNorthOutput, OOBSouthInput, OOBSouthOutput, OOBWestInput, OOBWestOutput, turnLeftInput, turnLeftOutput, turnRightInput, turnRightOutput } from "./mocks"
 
 describe("the game service", () => {
     it("should move the adventurer south", () => {
@@ -56,5 +56,9 @@ describe("the game service", () => {
 
     it("should turn player to the left", () => {
         expect(playGame(turnLeftInput)).toEqual(turnLeftOutput)
+    })
+
+    it("should pick up the treasure twice", () => {
+        expect(playGame(collectTreasureInput)).toEqual(collectTreasureOutput)
     })
 })
