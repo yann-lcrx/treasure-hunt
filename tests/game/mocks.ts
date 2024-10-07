@@ -402,4 +402,80 @@ export const CrossingAdventurerEastInput: GameState = {
     errors: []
 }
 
-export const CrossingAdventurerEastOutput: GameState = CrossingAdventurerEastInput
+export const CrossingAdventurerEastOutput = CrossingAdventurerEastInput
+
+export const turnRightInput: GameState = {
+    map: {
+        width: 10,
+        height: 10,
+    },
+    adventurers: [
+        {
+            name: "Link",
+            direction: CardinalPoint.WEST,
+            coordinates: {
+                x: 9,
+                y: 1,
+            },
+            instructions: [Instruction.RIGHT],
+            treasureCount: 0
+        },
+    ],
+    mountains: [],
+    treasures: [],
+    errors: []
+}
+
+export const turnRightOutput: GameState = {
+    ...turnRightInput,
+    adventurers: [
+        {
+            name: "Link",
+            direction: CardinalPoint.NORTH,
+            coordinates: {
+                x: 9,
+                y: 1,
+            },
+            instructions: [Instruction.RIGHT],
+            treasureCount: 0
+        },
+    ],
+}
+
+export const turnLeftInput: GameState = {
+    map: {
+        width: 10,
+        height: 10,
+    },
+    adventurers: [
+        {
+            name: "Link",
+            direction: CardinalPoint.SOUTH,
+            coordinates: {
+                x: 9,
+                y: 1,
+            },
+            instructions: [Instruction.LEFT],
+            treasureCount: 0
+        },
+    ],
+    mountains: [],
+    treasures: [],
+    errors: []
+}
+
+export const turnLeftOutput: GameState = {
+    ...turnRightInput,
+    adventurers: [
+        {
+            name: "Link",
+            direction: CardinalPoint.EAST,
+            coordinates: {
+                x: 9,
+                y: 1,
+            },
+            instructions: [Instruction.LEFT],
+            treasureCount: 0
+        },
+    ],
+}

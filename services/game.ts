@@ -2,8 +2,6 @@ import { CardinalPoint, Instruction } from "../constants/constants"
 import { Coordinates, GameState, InGameAdventurer, InGameMap, InGameMountain } from "../types"
 
 export const playGame = (gameData: GameState) => {
-    const { map, mountains } = gameData
-
     // determining the number of turns based on the adventurer with the highest number of instructions
     const totalTurns = Math.max(...(gameData.adventurers.map(adventurer => adventurer.instructions.length)))
 
@@ -13,11 +11,7 @@ export const playGame = (gameData: GameState) => {
         const { adventurers } = gameState
 
         const updatedAdventurers = adventurers.map((adventurer) => {
-            if (adventurer.instructions[turn] === Instruction.FORWARD) {
-                return attemptMoveForward(adventurer, map, mountains, adventurers)
-            }
-
-            return adventurer
+            return handleInstructions(adventurer, gameState, turn)
         })
 
         return { ...gameState, adventurers: updatedAdventurers }
@@ -26,14 +20,47 @@ export const playGame = (gameData: GameState) => {
     return endGameData
 }
 
+const handleInstructions = (
+    adventurer: InGameAdventurer,
+    gameState: GameState,
+    turn: number) => {
+    if (adventurer.instructions[turn] === Instruction.FORWARD) {
+        return attemptMoveForward(adventurer, gameState.map, gameState.mountains, gameState.adventurers)
+    }
 
+    if (adventurer.instructions[turn] === Instruction.RIGHT) {
+        return turnRight(adventurer)
+    }
 
-const turnRight = () => {
+    if (adventurer.instructions[turn] === Instruction.LEFT) {
+        return turnLeft(adventurer)
+    }
 
+    return adventurer
 }
 
-const turnLeft = () => {
+const turnRight = (adventurer: InGameAdventurer): InGameAdventurer => {
+    const clockwiseCardinalPoints = Object.values(CardinalPoint)
+    const directionIndex = clockwiseCardinalPoints.indexOf(adventurer.direction)
 
+    return {
+        ...adventurer,
+        direction: (directionIndex < clockwiseCardinalPoints.length - 1)
+            ? clockwiseCardinalPoints[directionIndex + 1]
+            : clockwiseCardinalPoints[0]
+    }
+}
+
+const turnLeft = (adventurer: InGameAdventurer): InGameAdventurer => {
+    const clockwiseCardinalPoints = Object.values(CardinalPoint)
+    const directionIndex = clockwiseCardinalPoints.indexOf(adventurer.direction)
+
+    return {
+        ...adventurer,
+        direction: (directionIndex > 0)
+            ? clockwiseCardinalPoints[directionIndex - 1]
+            : clockwiseCardinalPoints[clockwiseCardinalPoints.length - 1]
+    }
 }
 
 const attemptMoveForward = (
