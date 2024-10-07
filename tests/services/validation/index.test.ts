@@ -1,5 +1,5 @@
 import { validateEntry } from "../../../services/validation"
-import { incompleteAdventurerDataset, incompleteAdventurerError, incompleteMountainDataset, incompleteMountainError, incompleteTreasureDataset, incompleteTreasureError, multiMapDataset, multiMapError, noMapDataset, noMapError, nonCardinalAdventurerDataset, nonCardinalAdventurerError, nonNumberCountTreasureDataset, nonNumberCountTreasureError, nonNumberXAxisAdventurerDataset, nonNumberXAxisAdventurerError, nonNumberXAxisMapDataset, nonNumberXAxisMapError, nonNumberXAxisMountainDataset, nonNumberXAxisMountainError, nonNumberXAxisTreasureDataset, nonNumberXAxisTreasureError, nonNumberYAxisAdventurerDataset, nonNumberYAxisAdventurerError, nonNumberYAxisMapDataset, nonNumberYAxisMapError, nonNumberYAxisMountainDataset, nonNumberYAxisMountainError, nonNumberYAxisTreasureDataset, nonNumberYAxisTreasureError, outOfBoundsDataset, outOfBoundsErrors, smallMapDataset, smallMapError, validEntryDataset } from "./mocks"
+import { conflictingElementsDataset, conflictingElementsErrors, incompleteAdventurerDataset, incompleteAdventurerError, incompleteMountainDataset, incompleteMountainError, incompleteTreasureDataset, incompleteTreasureError, multiMapDataset, multiMapError, noMapDataset, noMapError, nonCardinalAdventurerDataset, nonCardinalAdventurerError, nonNumberCountTreasureDataset, nonNumberCountTreasureError, nonNumberXAxisAdventurerDataset, nonNumberXAxisAdventurerError, nonNumberXAxisMapDataset, nonNumberXAxisMapError, nonNumberXAxisMountainDataset, nonNumberXAxisMountainError, nonNumberXAxisTreasureDataset, nonNumberXAxisTreasureError, nonNumberYAxisAdventurerDataset, nonNumberYAxisAdventurerError, nonNumberYAxisMapDataset, nonNumberYAxisMapError, nonNumberYAxisMountainDataset, nonNumberYAxisMountainError, nonNumberYAxisTreasureDataset, nonNumberYAxisTreasureError, outOfBoundsDataset, outOfBoundsErrors, smallMapDataset, smallMapError, validEntryDataset } from "./mocks"
 
 describe("the validation service - map", () => {
 
@@ -72,12 +72,15 @@ describe("the validation service - mountains", () => {
     it("should return an error if a mountain y axis is not a number", () => {
         expect(validateEntry(nonNumberYAxisMountainDataset)).toEqual(expect.arrayContaining([nonNumberYAxisMountainError]))
     })
-
 })
 
 describe("the validation service", () => {
     it("should return an error if an element is out of bounds", () => {
         expect(validateEntry(outOfBoundsDataset)).toEqual(expect.arrayContaining(outOfBoundsErrors))
+    })
+
+    it("should return an error if two adventurers are at the same spot", () => {
+        expect(validateEntry(conflictingElementsDataset)).toEqual(expect.arrayContaining(conflictingElementsErrors))
     })
 
     it("should return no errors", () => {

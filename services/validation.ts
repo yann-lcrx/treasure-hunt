@@ -21,8 +21,9 @@ export const validateEntry = (mapElements: GameEntryLine[]): GameEntryError[] =>
     const adventurerErrors = validateAdventurers(adventurers, map)
     const treasureErrors = validateTreasures(treasures, map)
     const mountainErrors = validateMountains(mountains, map)
+    const placementErrors = validatePlacements([...mountains, ...adventurers])
 
-    return [...mapErrors, ...adventurerErrors, ...treasureErrors, ...mountainErrors]
+    return [...mapErrors, ...adventurerErrors, ...treasureErrors, ...mountainErrors, ...placementErrors]
 }
 
 const isElementInBounds = (coordinates: Coordinates, map: GameEntryLine) => {
@@ -170,4 +171,43 @@ const validateTreasures = (treasures: GameEntryLine[], map: GameEntryLine): Game
     })
 
     return errors
+}
+
+const validatePlacements = (elements: GameEntryLine[]): GameEntryError[] => {
+    const errorsAndOccupiedSpots = (elements.reduce<{
+        errors: GameEntryError[]
+        occupiedSpots: Coordinates[]
+    }>((acc, element) => {
+        const elementType = element[0]
+
+        if (elementType === FileElement.ADVENTURER
+            || elementType === FileElement.MOUNTAIN) {
+            const coordinates = elementType === FileElement.ADVENTURER
+                ? { x: parseFloat(element[2]), y: parseFloat(element[3]) }
+                : { x: parseFloat(element[1]), y: parseFloat(element[2]) }
+
+            if (acc.occupiedSpots.find((spot) => spot.x === coordinates.x && spot.y === coordinates.y)) {
+                return {
+                    errors: [...acc.errors,
+                    {
+                        line: element,
+                        name: GameEntryErrorName.CONFLICTING_PLACEMENT,
+                        message: GameEntryErrorMessage.CONFLICTING_PLACEMENT,
+                    }
+                    ],
+                    occupiedSpots: [...acc.occupiedSpots, coordinates]
+                }
+            }
+
+            return {
+                ...acc,
+                occupiedSpots: [...acc.occupiedSpots, coordinates]
+            }
+        }
+
+        return acc
+
+    }, { errors: [], occupiedSpots: [] }))
+
+    return errorsAndOccupiedSpots.errors
 }

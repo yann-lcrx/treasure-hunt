@@ -8,7 +8,8 @@ export enum GameEntryErrorMessage {
     INVALID_MOUNTAIN = 'Please specify the following values for mountains: "A - x-axis value - y-axis value"',
     INVALID_TREASURE = 'Please specify the following values for treasures: "A - x-axis value - y-axis value - quantity"',
     NON_NUMBER_TREASURE_QUANTITY = "Please specify a number for treasure quantity",
-    ELEMENT_OUT_OF_BOUNDS = "Element is out of the game boundaries"
+    ELEMENT_OUT_OF_BOUNDS = "Element is out of the game boundaries",
+    CONFLICTING_PLACEMENT = "Element is at the same spot as another element"
 }
 
 export enum GameEntryErrorName {
@@ -21,7 +22,8 @@ export enum GameEntryErrorName {
     INVALID_MOUNTAIN = "InvalidMountain",
     INVALID_TREASURE = "InvalidTreasure",
     NON_NUMBER_TREASURE_QUANTITY = "NonNumberTreasureQuantity",
-    ELEMENT_OUT_OF_BOUNDS = "ElementOutOfBounds"
+    ELEMENT_OUT_OF_BOUNDS = "ElementOutOfBounds",
+    CONFLICTING_PLACEMENT = "ConflictingPlacement"
 }
 
 export enum GameSetupErrorMessage {

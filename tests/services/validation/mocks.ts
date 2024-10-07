@@ -243,3 +243,27 @@ export const validEntryDataset = [
     ['T​', '1', '3', '3'],
     ['A​', 'Lara', '1', '1', 'S', 'AADADAGGA']
 ]
+
+const conflictingElementsLines = [
+    [FileElement.ADVENTURER, 'Lara', '1', '3', 'S', 'AADADAGGA'],
+    [FileElement.ADVENTURER, 'Indiana', '1', '3', 'N', 'AADADAGGA'],
+    [FileElement.MOUNTAIN, '2', '5'],
+    [FileElement.MOUNTAIN, '2', '5'],
+    [FileElement.MOUNTAIN, '6', '0'],
+    [FileElement.ADVENTURER, 'Link', '6', '0', 'S', 'AADADAGGA'],
+]
+
+export const conflictingElementsDataset = [
+    [FileElement.MAP, "10", "12"],
+    ...conflictingElementsLines
+]
+
+const conflictingLinesWithErrors = [
+    conflictingElementsLines[1], conflictingElementsLines[3], conflictingElementsLines[5]
+]
+
+export const conflictingElementsErrors: GameEntryError[] = conflictingLinesWithErrors.map<GameEntryError>((line) => ({
+    line,
+    name: GameEntryErrorName.CONFLICTING_PLACEMENT,
+    message: GameEntryErrorMessage.CONFLICTING_PLACEMENT
+}))
