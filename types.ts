@@ -62,6 +62,11 @@ export interface InGameMap {
     height: number
 }
 
+export interface MovementData {
+    adventurer: InGameAdventurer,
+    collectedTreasure?: InGameTreasure
+}
+
 export interface GameState {
     map: InGameMap
     adventurers: InGameAdventurer[]

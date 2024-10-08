@@ -552,3 +552,61 @@ export const collectTreasureOutput: GameState = {
     }],
     errors: []
 }
+
+export const conflictingMovementsInput: GameState = {
+    map: {
+        width: 10,
+        height: 10,
+    },
+    adventurers: [
+        {
+            name: "Link",
+            direction: CardinalPoint.EAST,
+            coordinates: {
+                x: 4,
+                y: 5,
+            },
+            instructions: [
+                Instruction.FORWARD,
+            ],
+            treasureCount: 0
+        },
+        {
+            name: "Indiana",
+            direction: CardinalPoint.WEST,
+            coordinates: {
+                x: 6,
+                y: 5,
+            },
+            instructions: [
+                Instruction.FORWARD,
+            ],
+            treasureCount: 0
+        },
+        {
+            name: "Lara",
+            direction: CardinalPoint.SOUTH,
+            coordinates: {
+                x: 5,
+                y: 4,
+            },
+            instructions: [
+                Instruction.FORWARD,
+            ],
+            treasureCount: 0
+        },
+    ],
+    mountains: [],
+    treasures: [],
+    errors: []
+}
+
+export const conflictingMovementsOutput = {
+    ...conflictingMovementsInput,
+    adventurers: conflictingMovementsInput.adventurers.map((adventurer) => {
+        return adventurer.name === "Link" ? {
+            ...adventurer,
+            coordinates: { x: 5, y: 5 }
+        } : adventurer
+    })
+}
