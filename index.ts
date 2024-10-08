@@ -1,5 +1,6 @@
-import { parseFile } from "./services/file"
+import { parseFile, writeFile } from "./services/file"
 import { runGame } from "./services/game"
+import { getCsvString } from "./services/postGame"
 import { setupGame } from "./services/setup"
 
 const playGame = async () => {
@@ -7,11 +8,15 @@ const playGame = async () => {
 
     const data = await parseFile(path)
 
-    const gameData = setupGame(data)
+    const startupData = setupGame(data)
 
-    const finalGameData = runGame(gameData)
+    const finalGameData = runGame(startupData)
 
-    console.log(finalGameData)
+    const csvString = getCsvString(finalGameData)
+
+    const result = await writeFile(csvString)
+
+    console.log(result)
 }
 
 playGame()

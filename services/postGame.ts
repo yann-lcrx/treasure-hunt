@@ -4,8 +4,8 @@ import { GameEntryData, GameState, InGameAdventurer, InGameMap, InGameMountain, 
 export const getCsvString = (gameData: GameState) => {
     const data = getPostGameData(gameData)
 
-    return data.reduce((acc, curr) => {
-        return `${acc}\n${curr.join(" - ")}`
+    return data.reduce((acc, curr, index) => {
+        return index ? `${acc}\n${curr.join(" - ")}` : curr.join(" - ")
     }, "")
 }
 

@@ -27,8 +27,7 @@ export const lines = [
     [FileElement.TREASURE, "0", "3", "2"],
 ]
 
-export const stringResult = `
-${FileElement.MAP} - 3 - 4
+export const stringResult = `${FileElement.MAP} - 3 - 4
 ${FileElement.MOUNTAIN} - 1 - 0
 ${FileElement.MOUNTAIN} - 2 - 1
 ${FileElement.TREASURE} - 0 - 3 - 2
