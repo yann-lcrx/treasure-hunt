@@ -1,6 +1,14 @@
 import { FileElement } from "../constants/constants";
 import { GameEntryData, GameState, InGameAdventurer, InGameMap, InGameMountain, InGameTreasure } from "../types";
 
+export const getCsvString = (gameData: GameState) => {
+    const data = getPostGameData(gameData)
+
+    return data.reduce((acc, curr) => {
+        return `${acc}\n${curr.join(" - ")}`
+    }, "")
+}
+
 export const getPostGameData = (gameData: GameState): GameEntryData => {
     const { adventurers, treasures, mountains, map } = gameData
 
