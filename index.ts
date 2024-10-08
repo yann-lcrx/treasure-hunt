@@ -15,7 +15,9 @@ const playGame = async () => {
 
         const csvString = getCsvString(finalGameData)
 
-        const result = await writeFile(csvString)
+        await writeFile(csvString)
+
+        console.info("Success!")
     } catch (err) {
         console.error(err)
     }

@@ -24,5 +24,11 @@ export const parseFile = async (path: fs.PathLike): Promise<string[][]> => {
 }
 
 export const writeFile = async (data: string) => {
-    return fs.writeFile("output.csv", data, "utf-8", () => { })
+    return fs.writeFile("output.csv", data, "utf-8", (err) => {
+        if (err) {
+            throw err
+        }
+
+        console.info("File saved to output.csv")
+    })
 }
