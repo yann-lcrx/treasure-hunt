@@ -86,3 +86,4 @@ export const adventurerData: Pick<GameState, "adventurers"> = {
         },
     ]
 }
+

@@ -18,3 +18,4 @@ describe("the setup game service", () => {
         expect(setupGame(dataset)).toEqual(expect.objectContaining(mapData))
     })
 })
+
