@@ -123,17 +123,13 @@ const attemptMoveSouth = (
 ) => {
     const { coordinates } = adventurer
     const { x, y } = coordinates
-    const { mountains, adventurers, map, treasures } = gameState
 
-    const expectedCoordinates = {
+    const newCoordinates = {
         x, y: y + 1
     }
 
-    if (isPositionOccupied(expectedCoordinates, adventurer.name, mountains, adventurers) || y >= map.height - 1) {
-        return { adventurer }
-    }
+    return attemptMove(adventurer, newCoordinates, gameState)
 
-    return moveAdventurer(adventurer, expectedCoordinates, treasures)
 }
 
 const attemptMoveNorth = (
@@ -142,17 +138,12 @@ const attemptMoveNorth = (
 ) => {
     const { coordinates } = adventurer
     const { x, y } = coordinates
-    const { mountains, adventurers, treasures } = gameState
 
-    const expectedCoordinates = {
+    const newCoordinates = {
         x, y: y - 1
     }
 
-    if (isPositionOccupied(expectedCoordinates, adventurer.name, mountains, adventurers) || y === 0) {
-        return { adventurer }
-    }
-
-    return moveAdventurer(adventurer, expectedCoordinates, treasures)
+    return attemptMove(adventurer, newCoordinates, gameState)
 }
 
 const attemptMoveEast = (
@@ -161,17 +152,12 @@ const attemptMoveEast = (
 ) => {
     const { coordinates } = adventurer
     const { x, y } = coordinates
-    const { mountains, adventurers, map, treasures } = gameState
 
-    const expectedCoordinates = {
+    const newCoordinates = {
         x: x + 1, y
     }
 
-    if (isPositionOccupied(expectedCoordinates, adventurer.name, mountains, adventurers) || x >= map.width - 1) {
-        return { adventurer }
-    }
-
-    return moveAdventurer(adventurer, expectedCoordinates, treasures)
+    return attemptMove(adventurer, newCoordinates, gameState)
 }
 
 const attemptMoveWest = (
@@ -180,18 +166,37 @@ const attemptMoveWest = (
 ) => {
     const { coordinates } = adventurer
     const { x, y } = coordinates
-    const { mountains, adventurers, treasures } = gameState
 
-    const expectedCoordinates = {
+    const newCoordinates = {
         x: x - 1, y
     }
 
-    if (isPositionOccupied(expectedCoordinates, adventurer.name, mountains, adventurers) || x === 0) {
+    return attemptMove(adventurer, newCoordinates, gameState)
+}
+
+const attemptMove = (
+    adventurer: InGameAdventurer,
+    newCoordinates: Coordinates,
+    gameState: GameState,
+) => {
+
+    const { mountains, adventurers, treasures, map } = gameState
+
+    if (isPositionOccupied(newCoordinates, adventurer.name, mountains, adventurers)
+        || !isCoordinatesInbound(newCoordinates, map)
+    ) {
         return { adventurer }
     }
 
-    return moveAdventurer(adventurer, expectedCoordinates, treasures)
+    return moveAdventurer(adventurer, newCoordinates, treasures)
 }
+
+const isCoordinatesInbound = (coordinates: Coordinates, map: InGameMap) => {
+    return isCoordinateInbound(coordinates.x, map.width)
+        && isCoordinateInbound(coordinates.y, map.height)
+}
+
+const isCoordinateInbound = (coordinate: number, maxValue: number) => coordinate >= 0 && coordinate < maxValue
 
 const attemptMoveForward = (
     adventurer: InGameAdventurer,
