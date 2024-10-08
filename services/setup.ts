@@ -18,8 +18,6 @@ export const setupGame = (data: GameEntryData): GameState => {
 }
 
 const createMap = (data: GameEntryData): InGameMap | undefined => {
-    console.log(data)
-
     const map = data.find(line => line[0] === FileElement.MAP)
 
     if (map) {

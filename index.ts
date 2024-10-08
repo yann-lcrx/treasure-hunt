@@ -3,9 +3,6 @@ import { runGame } from "./services/game"
 import { setupGame } from "./services/setup"
 
 const playGame = async () => {
-    // logic
-    console.log("hello world")
-
     const path = process.argv[2]
 
     const data = await parseFile(path)
@@ -14,7 +11,7 @@ const playGame = async () => {
 
     const finalGameData = runGame(gameData)
 
-    console.log(finalGameData.adventurers)
+    console.log(finalGameData)
 }
 
 playGame()

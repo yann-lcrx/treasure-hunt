@@ -8,7 +8,7 @@ export const runGame = (gameData: GameState) => {
     const turnArray = Array.apply(null, Array(totalTurns))
 
     const endGameData = turnArray.reduce<GameState>((gameState, curr, turn) => {
-        gameState.adventurers.map((adventurer) => {
+        gameState.adventurers.forEach((adventurer) => {
             playAdventurerTurn(adventurer, gameState, turn)
         })
 
@@ -90,8 +90,8 @@ const turnLeft = (adventurer: InGameAdventurer): MovementData => {
 
 const moveAdventurer = (adventurer: InGameAdventurer, coordinates: Coordinates, treasures: InGameTreasure[]): MovementData => {
     const collectedTreasure = treasures.find((treasure) =>
-        treasure.coordinates.x === adventurer.coordinates.x
-        && treasure.coordinates.y === adventurer.coordinates.y
+        treasure.coordinates.x === coordinates.x
+        && treasure.coordinates.y === coordinates.y
         && treasure.quantity > 0
     )
 
@@ -129,7 +129,6 @@ const attemptMoveSouth = (
     }
 
     return attemptMove(adventurer, newCoordinates, gameState)
-
 }
 
 const attemptMoveNorth = (
