@@ -7,6 +7,7 @@ export const runGame = (gameData: GameState) => {
 
     const turnArray = Array.apply(null, Array(totalTurns))
 
+    // iterating on the number of turns
     const endGameData = turnArray.reduce<GameState>((gameState, curr, turn) => {
         gameState.adventurers.forEach((adventurer) => {
             playAdventurerTurn(adventurer, gameState, turn)
