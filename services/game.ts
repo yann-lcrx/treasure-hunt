@@ -1,7 +1,7 @@
 import { CardinalPoint, Instruction } from "../constants/constants"
 import { Coordinates, GameState, InGameAdventurer, InGameMap, InGameMountain, InGameTreasure, MovementData, Treasure } from "../types"
 
-export const playGame = (gameData: GameState) => {
+export const runGame = (gameData: GameState) => {
     // determining the number of turns based on the adventurer with the highest number of instructions
     const totalTurns = Math.max(...(gameData.adventurers.map(adventurer => adventurer.instructions.length)))
 

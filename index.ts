@@ -1,4 +1,5 @@
 import { parseFile } from "./services/file"
+import { runGame } from "./services/game"
 import { setupGame } from "./services/setup"
 
 const playGame = async () => {
@@ -11,7 +12,9 @@ const playGame = async () => {
 
     const gameData = setupGame(data)
 
-    return gameData
+    const finalGameData = runGame(gameData)
+
+    console.log(finalGameData.adventurers)
 }
 
 playGame()

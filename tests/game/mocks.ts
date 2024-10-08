@@ -20,7 +20,6 @@ export const moveSouthInput: GameState = {
     ],
     mountains: [],
     treasures: [],
-    errors: []
 }
 
 export const moveSouthOutput: GameState = {
@@ -42,7 +41,6 @@ export const moveSouthOutput: GameState = {
     ],
     mountains: [],
     treasures: [],
-    errors: []
 }
 
 export const moveNorthInput: GameState = {
@@ -64,7 +62,6 @@ export const moveNorthInput: GameState = {
     ],
     mountains: [],
     treasures: [],
-    errors: []
 }
 
 export const moveNorthOutput: GameState = {
@@ -86,7 +83,6 @@ export const moveNorthOutput: GameState = {
     ],
     mountains: [],
     treasures: [],
-    errors: []
 }
 
 export const moveWestInput: GameState = {
@@ -108,7 +104,6 @@ export const moveWestInput: GameState = {
     ],
     mountains: [],
     treasures: [],
-    errors: []
 }
 
 export const moveWestOutput: GameState = {
@@ -130,7 +125,6 @@ export const moveWestOutput: GameState = {
     ],
     mountains: [],
     treasures: [],
-    errors: []
 }
 
 export const moveEastInput: GameState = {
@@ -152,7 +146,6 @@ export const moveEastInput: GameState = {
     ],
     mountains: [],
     treasures: [],
-    errors: []
 }
 
 export const moveEastOutput: GameState = {
@@ -174,7 +167,6 @@ export const moveEastOutput: GameState = {
     ],
     mountains: [],
     treasures: [],
-    errors: []
 }
 
 export const OOBNorthInput: GameState = {
@@ -196,7 +188,6 @@ export const OOBNorthInput: GameState = {
     ],
     mountains: [],
     treasures: [],
-    errors: []
 }
 
 export const OOBNorthOutput: GameState = OOBNorthInput
@@ -220,7 +211,6 @@ export const OOBSouthInput: GameState = {
     ],
     mountains: [],
     treasures: [],
-    errors: []
 }
 
 export const OOBSouthOutput: GameState = OOBSouthInput
@@ -244,7 +234,6 @@ export const OOBWestInput: GameState = {
     ],
     mountains: [],
     treasures: [],
-    errors: []
 }
 
 export const OOBWestOutput: GameState = OOBWestInput
@@ -268,7 +257,6 @@ export const OOBEastInput: GameState = {
     ],
     mountains: [],
     treasures: [],
-    errors: []
 }
 
 export const OOBEastOutput: GameState = OOBEastInput
@@ -299,7 +287,6 @@ export const CrossingMountainSouthInput: GameState = {
         }
     ],
     treasures: [],
-    errors: []
 }
 
 export const CrossingMountainSouthOutput: GameState = CrossingMountainSouthInput
@@ -331,7 +318,6 @@ export const CrossingMountainNorthInput: GameState = {
         }
     ],
     treasures: [],
-    errors: []
 }
 
 export const CrossingMountainNorthOutput: GameState = CrossingMountainNorthInput
@@ -365,7 +351,6 @@ export const CrossingAdventurerWestInput: GameState = {
     ],
     mountains: [],
     treasures: [],
-    errors: []
 }
 
 export const CrossingAdventurerWestOutput: GameState = CrossingAdventurerWestInput
@@ -399,7 +384,6 @@ export const CrossingAdventurerEastInput: GameState = {
     ],
     mountains: [],
     treasures: [],
-    errors: []
 }
 
 export const CrossingAdventurerEastOutput = CrossingAdventurerEastInput
@@ -423,7 +407,6 @@ export const turnRightInput: GameState = {
     ],
     mountains: [],
     treasures: [],
-    errors: []
 }
 
 export const turnRightOutput: GameState = {
@@ -461,7 +444,6 @@ export const turnLeftInput: GameState = {
     ],
     mountains: [],
     treasures: [],
-    errors: []
 }
 
 export const turnLeftOutput: GameState = {
@@ -515,7 +497,6 @@ export const collectTreasureInput: GameState = {
         },
         quantity: 2
     }],
-    errors: []
 }
 
 export const collectTreasureOutput: GameState = {
@@ -550,7 +531,6 @@ export const collectTreasureOutput: GameState = {
         },
         quantity: 0
     }],
-    errors: []
 }
 
 export const conflictingMovementsInput: GameState = {
@@ -598,7 +578,6 @@ export const conflictingMovementsInput: GameState = {
     ],
     mountains: [],
     treasures: [],
-    errors: []
 }
 
 export const conflictingMovementsOutput = {

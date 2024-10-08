@@ -1,21 +1,12 @@
 import { CardinalPoint, FileElement, Instruction } from "../constants/constants"
-import { GameSetupErrorMessage, GameSetupErrorName } from "../constants/errors"
-import { GameEntryData, GameSetupError, GameState, InGameAdventurer, InGameMap, InGameMountain, InGameTreasure } from "../types"
+import { GameEntryData, GameState, InGameAdventurer, InGameMap, InGameMountain, InGameTreasure } from "../types"
 import { getAllItemsOfType } from "../utils"
 
-export const setupGame = (data: GameEntryData): GameState | Pick<GameState, "errors"> => {
+export const setupGame = (data: GameEntryData): GameState => {
     const map = createMap(data)
-    const errors: GameSetupError[] = []
 
     if (!map) {
-        return {
-            errors: [
-                {
-                    name: GameSetupErrorName.INVALID_MAP,
-                    message: GameSetupErrorMessage.INVALID_MAP
-                }
-            ]
-        }
+        throw new Error("Couldn't find a map")
     }
 
     return {
@@ -23,11 +14,12 @@ export const setupGame = (data: GameEntryData): GameState | Pick<GameState, "err
         adventurers: createAdventurers(data),
         mountains: createMountains(data),
         treasures: createTreasures(data),
-        errors
     }
 }
 
 const createMap = (data: GameEntryData): InGameMap | undefined => {
+    console.log(data)
+
     const map = data.find(line => line[0] === FileElement.MAP)
 
     if (map) {

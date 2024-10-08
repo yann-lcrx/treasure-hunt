@@ -72,5 +72,4 @@ export interface GameState {
     adventurers: InGameAdventurer[]
     mountains: InGameMountain[]
     treasures: InGameTreasure[]
-    errors: GameSetupError[]
 }
