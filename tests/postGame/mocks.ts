@@ -1,5 +1,5 @@
-import { CardinalPoint, FileElement } from "../../../constants/constants"
-import { GameEntryData, GameState } from "../../../types"
+import { CardinalPoint, FileElement } from "../../constants/constants"
+import { GameState } from "../../types"
 
 export const gameData: GameState = {
     map: { width: 3, height: 4 },

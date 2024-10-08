@@ -1,4 +1,4 @@
-import { getCsvString, getPostGameData } from "../../../services/postGame"
+import { getCsvString, getPostGameData } from "../../services/postGame"
 import { gameData, lines, stringResult } from "./mocks"
 
 describe("the post game service", () => {

@@ -1,6 +1,6 @@
-import { FileElement } from "../../../constants/constants"
-import { GameEntryErrorMessage, GameEntryErrorName } from "../../../constants/errors"
-import { GameEntryData, GameEntryError } from "../../../types"
+import { FileElement } from "../../constants/constants"
+import { GameEntryErrorMessage, GameEntryErrorName } from "../../constants/errors"
+import { GameEntryData, GameEntryError } from "../../types"
 
 // map
 export const noMapDataset: GameEntryData = [

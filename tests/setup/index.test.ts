@@ -1,4 +1,4 @@
-import { setupGame } from "../../../services/setup"
+import { setupGame } from "../../services/setup"
 import { adventurerData, dataset, mapData, mountainData, treasureData } from "./mocks"
 
 describe("the setup game service", () => {

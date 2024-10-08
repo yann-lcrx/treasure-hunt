@@ -1,4 +1,4 @@
-import { validateEntry } from "../../../services/validation"
+import { validateEntry } from "../../services/validation"
 import { conflictingElementsDataset, conflictingElementsErrors, incompleteAdventurerDataset, incompleteAdventurerError, incompleteMountainDataset, incompleteMountainError, incompleteTreasureDataset, incompleteTreasureError, multiMapDataset, multiMapError, noMapDataset, noMapError, nonCardinalAdventurerDataset, nonCardinalAdventurerError, nonNumberCountTreasureDataset, nonNumberCountTreasureError, nonNumberXAxisAdventurerDataset, nonNumberXAxisAdventurerError, nonNumberXAxisMapDataset, nonNumberXAxisMapError, nonNumberXAxisMountainDataset, nonNumberXAxisMountainError, nonNumberXAxisTreasureDataset, nonNumberXAxisTreasureError, nonNumberYAxisAdventurerDataset, nonNumberYAxisAdventurerError, nonNumberYAxisMapDataset, nonNumberYAxisMapError, nonNumberYAxisMountainDataset, nonNumberYAxisMountainError, nonNumberYAxisTreasureDataset, nonNumberYAxisTreasureError, outOfBoundsDataset, outOfBoundsErrors, smallMapDataset, smallMapError, validEntryDataset } from "./mocks"
 
 describe("the validation service - map", () => {

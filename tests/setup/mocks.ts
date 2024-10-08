@@ -1,5 +1,5 @@
-import { CardinalPoint, FileElement, Instruction } from "../../../constants/constants";
-import { GameEntryData, GameState } from "../../../types";
+import { CardinalPoint, FileElement, Instruction } from "../../constants/constants"
+import { GameEntryData, GameState } from "../../types"
 
 export const dataset: GameEntryData = [
     [FileElement.MAP, "3", "4"],
