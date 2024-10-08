@@ -4,19 +4,21 @@ import { getCsvString } from "./services/postGame"
 import { setupGame } from "./services/setup"
 
 const playGame = async () => {
-    const path = process.argv[2]
+    try {
+        const path = process.argv[2]
 
-    const data = await parseFile(path)
+        const data = await parseFile(path)
 
-    const startupData = setupGame(data)
+        const startupData = setupGame(data)
 
-    const finalGameData = runGame(startupData)
+        const finalGameData = runGame(startupData)
 
-    const csvString = getCsvString(finalGameData)
+        const csvString = getCsvString(finalGameData)
 
-    const result = await writeFile(csvString)
-
-    console.log(result)
+        const result = await writeFile(csvString)
+    } catch (err) {
+        console.error(err)
+    }
 }
 
 playGame()
